@@ -1,0 +1,79 @@
+{% load static %}
+
+<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+	<div class="container-fluid d-flex flex-column p-0">
+		<a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+			<div class="sidebar-brand-icon">
+{#                <i class="fas fa-laugh-wink"></i>#}
+                <img title="xmed capital" class="border rounded-circle" src="{% static 'img/logo/logo.jpg' %}" width="50%" height="70" alt="XmedCapital">
+            </div>
+{#			<div class="sidebar-brand-text mx-3"><span>Brand</span></div>#}
+		</a>
+		<hr class="sidebar-divider my-0">
+		<ul class="nav navbar-nav text-light" id="accordionSidebar">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == dashboard_url %}active{% endif %}" href="{% url 'dashboard' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
+			</li>
+            <li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == exercices_url %}active{% endif %}" href="{% url 'exercices' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Exercices</span>
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == tradeurs_url %}active{% endif %}" href="{% url 'tradeurs' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Tradeurs</span>
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == investisseurs_url %}active{% endif %}" href="{% url 'investisseurs' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Investisseurs</span>
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == brokers_url %}active{% endif %}" href="{% url 'brokers' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Brokers</span>
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == investissements_url %}active{% endif %}" href="{% url 'investissements' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Investissements</span>
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == comptes_url %}active{% endif %}" href="{% url 'comptes' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Comptes</span>
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == operations_url %}active{% endif %}" href="{% url 'operations' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Operations</span>
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == payements_url %}active{% endif %}" href="{% url 'payements' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Payements</span>
+				</a>
+			</li>
+            <li class="nav-item" role="presentation">
+				<a class="nav-link {% if request.path == payements_url %}active{% endif %}" href="{% url 'payements' %}">
+					<i class="fas fa-tachometer-alt"></i>
+					<span>Exercices</span>
+				</a>
+			</li>
+		</ul>
+		<div class="text-center d-none d-md-inline">
+			<button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+		</div>
+	</div>
+</nav>

@@ -1,0 +1,93 @@
+{% load static %}
+
+{% url 'dashboard'             as dashboard_url %}
+{% url 'tradeurs'              as tradeurs_url %}
+{% url 'investisseurs'         as investisseurs_url %}
+{% url 'brokers'               as brokers_url %}
+{% url 'investissements'       as investissements_url %}
+{% url 'comptes'               as comptes_url %}
+{% url 'exercices'             as exercices_url %}
+{% url 'commerciaux'           as commerciaux_url %}
+{% url 'operations'            as operations_url %}
+{% url 'payements'             as payements_url %}
+{% url 'ajouter_tradeur'       as ajouter_tradeur_url %}
+{% url 'ajouter_investisseur'  as ajouter_investisseur_url %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>{% block title %}Dashboard - Brand{% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+	<link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
+
+
+	<link rel="stylesheet" href="{% static 'css/dataTable/dataTables.bootstrap4.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dataTable/colReorder.bootstrap4.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dataTable/responsive.bootstrap4.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dataTable/rowGroup.bootstrap4.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dataTable/rowReorder.bootstrap4.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dataTable/scroller.bootstrap4.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dataTable/select.bootstrap4.css' %}">
+
+	{% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body id="page-top">
+	<div id="wrapper">
+
+		{% include 'sidebar.html' %}
+
+		<div class="d-flex flex-column" id="content-wrapper">
+			<div id="content">
+				
+				{% include 'header.html' %}
+				
+				{% block content %}{% endblock content %}
+				
+			</div>
+
+			{% include 'footer.html' %}
+
+		</div>
+		<a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+	</div>
+	
+
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/chart.min.js' %}"></script>
+	<script src="{% static 'js/bs-init.js' %}"></script>
+	<script src="{% static 'js/jquery.easing.js' %}"></script>
+	<script src="{% static 'js/theme.js' %}"></script>
+	<script src="{% static 'js/theme.js' %}"></script>
+
+
+	<script src="{% static 'js/dataTable/jquery.dataTables.js' %}"></script>
+	<script src="{% static 'js/dataTable/dataTables.bootstrap4.js' %}"></script>
+	<script src="{% static 'js/dataTable/dataTables.colReorder.js' %}"></script>
+	<script src="{% static 'js/dataTable/dataTables.responsive.js' %}"></script>
+	<script src="{% static 'js/dataTable/dataTables.rowGroup.js' %}"></script>
+	<script src="{% static 'js/dataTable/dataTables.select.js' %}"></script>
+	<script src="{% static 'js/dataTable/dataTables.scroller.js' %}"></script>
+{#	<script src="{% static 'js/dataTable/alert.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/modal.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/util.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/tab.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/collapse.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/carousel.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/button.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/tooltip.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/tooltip.js' %}"></script>#}
+{#	<script src="{% static 'js/dataTable/dropdown.js' %}"></script>#}
+
+
+	{% block javascripts %}{% endblock javascripts %}
+
+</body>
+
+</html>
