@@ -81,7 +81,7 @@
                             </div>
                             <div class="card-body">
 
-                                {% include 'tradeur/forms/ajouter.html' %}
+                                {% include 'tradeur/forms/modifier.html' %}
 
                             </div>
                         </div>
@@ -128,4 +128,8 @@
 {#        </div>#}
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/tradeur/profile.js' %}" type="application/javascript"></script>
 {% endblock %}

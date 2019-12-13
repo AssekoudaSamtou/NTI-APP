@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.index, name="tradeurs"),
     path('ajouter/', views.ajouter, name="ajouter_tradeur"),
     path('profile/<int:pk>/', views.profile, name="profile_tradeur"),
+    path('supprimer/<int:pk>/', views.supprimer, name="supprimer_tradeur"),
 ]

@@ -3,7 +3,7 @@
 
 {% block title %}Home{% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/tradeur/ajouter.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/tradeur/index.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
 			<h3 class="text-dark mb-4">Team</h3>
 			<div class="card shadow">
 				<div class="card-header py-3">
-					<p class="text-primary m-0 font-weight-bold">Liste des Tradeurs</p>
+					<p class="text-primary m-0 font-weight-bold lead">Liste des Tradeurs</p>
 				</div>
 				<div class="card-body">
 					<div class="row">
@@ -50,7 +50,6 @@
 							<thead>
 								<tr>
 									<th>Nom & Prénoms</th>
-{#									<th>Prénoms</th>#}
 									<th>Téléphone</th>
 									<th>Email</th>
 									<th>Sexe</th>
@@ -78,7 +77,6 @@
 							<tfoot>
 								<tr>
 									<td><strong>Nom & Prénoms</strong></td>
-{#									<td><strong>Prénoms</strong></td>#}
 									<td><strong>Téléphone</strong></td>
 									<td><strong>Email</strong></td>
 									<td><strong>Sexe</strong></td>
@@ -106,4 +104,8 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/tradeur/index.js' %}"></script>
 {% endblock %}

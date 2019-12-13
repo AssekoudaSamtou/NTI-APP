@@ -10,4 +10,4 @@ class Commercial(Personne):
         return f"{self.nom}"
 
     def __str__(self):
-        return f"{self.nom}"
+        return f"{self.nom} {self.prenom}"

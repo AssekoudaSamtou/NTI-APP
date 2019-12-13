@@ -1,0 +1,16 @@
+{% load static %}
+
+
+<div class="card mb-4">
+    <div class="card-body text-center shadow" style="padding: 57px;">
+
+        {% if commercial.sexe == "M" %}
+            <img class="rounded-circle mb-3 mt-4" id="img_avatar"
+                 src="{% static 'img/avatars/avatar6.png' %}" width="160" height="160" alt="avatar">
+        {% else %}
+            <img class="rounded-circle mb-3 mt-4" id="img_avatar"
+                 src="{% static 'img/avatars/avatarF.png' %}" width="160" height="160" alt="avatar">
+        {% endif %}
+
+    </div>
+</div>

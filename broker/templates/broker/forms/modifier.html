@@ -1,0 +1,34 @@
+{% load static %}
+
+
+<form id="modifier_form" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_lebelle">
+                    <strong>Libelle</strong>
+                </label>
+                {{ form.libelle }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_site_web">
+                    <strong>Lien du site web</strong>
+                </label>
+                {{ form.site_web }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-save"></i>&nbsp;Save</button>
+        <button class="btn btn-danger btn-sm" type="button"
+                value="{% url 'supprimer_broker' pk=broker.id %}"
+                onclick="supprimerBoker(this.value);">
+
+            <i class="fas fa-trash" ></i>&nbsp;Delete
+
+        </button>
+    </div>
+</form>

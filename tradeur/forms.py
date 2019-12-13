@@ -7,8 +7,7 @@ SEX_CHOICES = [
     ('F', 'Féminin')
 ]
 
-
-class TradeurForm(Form):
+class Personne(Form):
     nom = forms.CharField(
         max_length=50,
         widget=TextInput(
@@ -59,15 +58,6 @@ class TradeurForm(Form):
             choices=SEX_CHOICES
         ),
     )
-    # avatar = forms.ImageField(
-    #     widget=FileInput(
-    #         attrs={
-    #             'class': "form-control",
-    #             'required': False,
-    #         }
-    #     ),
-    # )
-
     def clean(self):
         cleaned_data = super().clean()
     # self.add_error("username", "error")
@@ -75,3 +65,18 @@ class TradeurForm(Form):
     # 			"Did not send for 'help' in the subject despite "
     # 			"CC'ing yourself."
     #		)
+
+
+
+class TradeurForm(Personne):
+
+    avatar = forms.ImageField(
+        widget=FileInput(
+            attrs={
+                'class': "form-control",
+                'required': False,
+            }
+        ),
+    )
+
+

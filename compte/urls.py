@@ -5,5 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="comptes"),
-    # path('archive/', ArchiveIndexView.as_view(model=Article, date_field="pub_date"), name="article_archive"),
+    path('ajouter/', views.ajouter, name="ajouter_compte"),
+    path('modifier/<int:pk>', views.modifier, name="modifier_compte"),
+    path('supprimer/<int:pk>', views.supprimer, name="supprimer_compte"),
 ]

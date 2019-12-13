@@ -3,23 +3,31 @@
 
 {% block title %}Home{% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/investisseur/index.css' %}">
 {% endblock %}
 
 {% block content %}
 	<div class="container-fluid">
 		<div class="container-fluid">
-			<h3 class="text-dark mb-4">Team</h3>
+{#			<h3 class="text-dark mb-4">Team</h3>#}
 			<div class="card shadow">
 				<div class="card-header py-3">
-					<p class="text-primary m-0 font-weight-bold">Employee Info</p>
+					<p class="text-primary m-0 font-weight-bold lead">Liste Investisseurs</p>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-6 text-nowrap">
+						<div class="col-md-5 text-nowrap">
 							<div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Show <select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div>
 						</div>
-						<div class="col-md-6">
+                        <div class="col-md-2">
+							<div class="mb-3">
+								<a class="btn btn-primary btn-sm" href="{% url 'ajouter_investisseur' %} ">
+									<i class="fas fa-plus"></i>
+									Ajouter
+								</a>
+							</div>
+						</div>
+						<div class="col-md-5">
 							<div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" /></label></div>
 						</div>
 					</div>
@@ -27,7 +35,7 @@
 						<table class="table dataTable my-0" id="dataTable">
 							<thead>
 								<tr>
-									<th>Nom</th>
+									<th>Nom & Prénoms</th>
 									<th>Téléphone</th>
 									<th>Email</th>
 									<th>Sexe</th>
@@ -36,18 +44,26 @@
                             <tbody>
 
                                 {% for investisseur in investisseurs %}
-                                    <tr>
-                                        <td><img class="rounded-circle mr-2" width="30" height="30" src="{% static 'img/avatars/avatar6.png' %}" />Airi Satou</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>33</td>
+                                    <tr onclick="window.location = '{% url "modifier_investisseur" pk=investisseur.id %}';" style="cursor: pointer;">
+                                        <td>
+                                            {% if investisseur.sexe == "M" %}
+                                                <img class="rounded-circle mr-2" width="50" height="40" src="{% static 'img/avatars/avatar6.png' %}"  alt="avatar"/>
+                                            {% else %}
+                                                <img class="rounded-circle mr-2" width="50" height="40" src="{% static 'img/avatars/avatarF.png' %}"  alt="avatar"/>
+                                            {% endif %}
+                                            {{ investisseur.nom }} {{ investisseur.prenom }}
+
+                                        </td>
+                                        <td style="line-height: 250%;">{{ investisseur.telephone }}</td>
+                                        <td style="line-height: 250%;">{{ investisseur.email }}</td>
+                                        <td style="line-height: 250%;">{{ investisseur.sexe }}</td>
                                     </tr>
                                 {% endfor %}
 
 							</tbody>
 							<tfoot>
 								<tr>
-									<td><strong>Nom</strong></td>
+									<td><strong>Nom & Prénoms</strong></td>
 									<td><strong>Téléphone</strong></td>
 									<td><strong>Email</strong></td>
 									<td><strong>Sexe</strong></td>
@@ -75,4 +91,8 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/investisseur/index.js' %}"></script>
 {% endblock %}

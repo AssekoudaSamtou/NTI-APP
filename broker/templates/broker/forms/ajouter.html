@@ -1,0 +1,27 @@
+{% load static %}
+
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_lebelle">
+                    <strong>Libelle</strong>
+                </label>
+                {{ form.libelle }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_site_web">
+                    <strong>Lien du site web</strong>
+                </label>
+                {{ form.site_web }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-sm" type="submit">Ajouter</button>
+    </div>
+</form>

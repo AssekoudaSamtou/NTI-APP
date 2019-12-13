@@ -3,7 +3,7 @@
 
 {% block title %}Home{% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/operation/index.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -12,14 +12,22 @@
 			<h3 class="text-dark mb-4">Team</h3>
 			<div class="card shadow">
 				<div class="card-header py-3">
-					<p class="text-primary m-0 font-weight-bold">Employee Info</p>
+					<p class="text-primary m-0 font-weight-bold">Liste Opérations</p>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-6 text-nowrap">
+						<div class="col-md-5 text-nowrap">
 							<div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Show <select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div>
 						</div>
-						<div class="col-md-6">
+                        <div class="col-md-2">
+							<div class="mb-3">
+								<a class="btn btn-primary btn-sm" href="{% url 'ajouter_operation' %} ">
+									<i class="fas fa-plus"></i>
+									Ajouter
+								</a>
+							</div>
+						</div>
+						<div class="col-md-5">
 							<div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" /></label></div>
 						</div>
 					</div>
@@ -28,19 +36,19 @@
 							<thead>
 								<tr>
 									<th>Date</th>
-									<th>Type</th>
-									<th>Montant</th>
+									<th>Type Opérations</th>
+									<th>Montant(Fcfa)</th>
 									<th>Compte</th>
 								</tr>
 							</thead>
 							<tbody>
 
                                 {% for operation in operations %}
-                                    <tr>
-                                        <td>21-08-1999</td>
-                                        <td>Depot</td>
-                                        <td>200000 Fcfa</td>
-                                        <td>XXXXXXXXXXXXXXXXX</td>
+                                    <tr onclick="window.location = '{% url "modifier_operation" pk=operation.pk %}';" style="cursor: pointer;">
+                                        <td>{{ operation.date }}</td>
+                                        <td>{{ operation.type_operation }}</td>
+                                        <td>{{ operation.montant }}</td>
+                                        <td>{{ operation.compte }}</td>
                                     </tr>
                                 {% endfor %}
 
@@ -48,8 +56,8 @@
 							<tfoot>
 								<tr>
 									<td><strong>Date</strong></td>
-									<td><strong>Type</strong></td>
-									<td><strong>Montant</strong></td>
+									<td><strong>Type Opérations</strong></td>
+									<td><strong>Montant(Fcfa)</strong></td>
 									<td><strong>Compte</strong></td>
 								</tr>
 							</tfoot>
@@ -75,4 +83,8 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/operation/index.js' %}" type="text/javascript"></script>
 {% endblock %}

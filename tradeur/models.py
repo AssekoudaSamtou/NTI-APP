@@ -11,7 +11,7 @@ class Personne(models.Model):
         return f"{self.nom}"
 
     def __str__(self):
-        return f"{self.nom}"
+        return f"{self.nom} {self.prenom}"
 
 
 class Tradeur(Personne):

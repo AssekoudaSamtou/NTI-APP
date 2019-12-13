@@ -3,23 +3,31 @@
 
 {% block title %}Home{% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/broker/index.css' %}">
 {% endblock %}
 
 {% block content %}
 	<div class="container-fluid">
 		<div class="container-fluid">
-			<h3 class="text-dark mb-4">Team</h3>
+{#			<h3 class="text-dark mb-4">Team</h3>#}
 			<div class="card shadow">
 				<div class="card-header py-3">
-					<p class="text-primary m-0 font-weight-bold">Employee Info</p>
+					<p class="text-primary m-0 font-weight-bold lead">Liste Brokers</p>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-6 text-nowrap">
+						<div class="col-md-5 text-nowrap">
 							<div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Show <select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div>
 						</div>
-						<div class="col-md-6">
+                        <div class="col-md-2">
+							<div class="mb-3">
+								<a class="btn btn-primary btn-sm" href="{% url 'ajouter_broker' %} ">
+									<i class="fas fa-plus"></i>
+									Ajouter
+								</a>
+							</div>
+						</div>
+						<div class="col-md-5">
 							<div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" /></label></div>
 						</div>
 					</div>
@@ -28,15 +36,15 @@
 							<thead>
 								<tr>
 									<th>Nom</th>
-									<th>Site Web</th>
+									<th class="text-center">Site Web</th>
 								</tr>
 							</thead>
 							<tbody>
 
                                 {% for broker in brokers %}
-                                    <tr>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
+                                    <tr onclick="window.location = '{% url "modifier_broker" pk=broker.id %}';" style="cursor: pointer;">
+                                        <td>{{ broker.libelle }}</td>
+                                        <td class="text-center"><a href="{{ broker.site_web }}" target="_blank">{{ broker.site_web }}</a></td>
                                     </tr>
                                 {% endfor %}
 
@@ -44,7 +52,7 @@
 							<tfoot>
 								<tr>
 									<td><strong>Nom</strong></td>
-									<td><strong>Site Web</strong></td>
+									<td class="text-center"><strong>Site Web</strong></td>
 								</tr>
 							</tfoot>
 						</table>
@@ -69,4 +77,8 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/broker/index.js' %}" type="text/javascript"></script>
 {% endblock %}

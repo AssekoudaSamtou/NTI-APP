@@ -1,0 +1,53 @@
+{% load static %}
+
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_lebelle">
+                    <strong>Identifiant du compte</strong>
+                </label>
+                {{ form.num_compte }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_site_web">
+                    <strong>Broker</strong>
+                </label>
+                {{ form.broker }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_lebelle">
+                    <strong>Tradeur</strong>
+                </label>
+                {{ form.tradeur }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_site_web">
+                    <strong>Montant Investi</strong>
+                </label>
+                {{ form.montant_investi }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_date_creation">
+                    <strong>Date de création</strong>
+                </label>
+                {{ form.date_creation }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-sm" type="submit">Ajouter</button>
+    </div>
+</form>

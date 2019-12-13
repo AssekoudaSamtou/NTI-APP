@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="investisseurs"),
-    # path('ajouter/', views.ajouter, name="ajouter_investisseur"),
-    # path('modifier/<int:pk>/', views.modifier, name="modifier_investisseur"),
+    path('ajouter/', views.ajouter, name="ajouter_investisseur"),
+    path('modifier/<int:pk>/', views.modifier, name="modifier_investisseur"),
+    path('supprimer/<int:pk>/', views.supprimer, name="supprimer_investisseur"),
 ]
