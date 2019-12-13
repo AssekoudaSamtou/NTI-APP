@@ -1,6 +1,6 @@
 from django.forms import ModelForm, Select, NumberInput, DateInput, TextInput
 
-from dashmed.investisseur.models import Investisseur
+from investisseur.models import Investisseur
 from .models import Investissement
 
 

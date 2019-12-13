@@ -20,7 +20,7 @@ class OperationForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                 },
-                choices=Compte.objects.all()
+                choices=[]# Compte.objects.all()
             ),
             'type_operation': Select(
                 attrs={
