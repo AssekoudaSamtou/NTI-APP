@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home {{ b.libelle }}{% endblock %}
 {% block stylesheets %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/tradeur/index.css' %}">
 {% endblock %}

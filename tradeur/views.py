@@ -1,12 +1,15 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
+from broker.models import Broker
 from tradeur.forms import TradeurForm
 from tradeur.models import Tradeur
 
 
 def home(request):
-    context = {}
+    broker = Broker('moi', 'son site')
+    broker.save()
+    context = {'b':broker}
     return render(request, 'home.html', context)
 
 def index(request):
