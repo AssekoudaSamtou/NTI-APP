@@ -7,9 +7,7 @@ from tradeur.models import Tradeur
 
 
 def home(request):
-    broker = Broker('moi', 'son site')
-    broker.save()
-    context = {'b':broker}
+    context = {}
     return render(request, 'home.html', context)
 
 def index(request):
