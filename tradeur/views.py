@@ -24,17 +24,19 @@ def ajouter(request):
     context = {'form': form}
     if request.method == 'POST':
         form = TradeurForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            Tradeur.objects.create(
-                nom=request.POST['nom'],
-                prenom=request.POST['prenom'],
-                email=request.POST['email'],
-                telephone=request.POST['telephone'],
-                sexe=request.POST['sexe'],
-                avatar=request.FILES.get('avatar')
-            )
-            return redirect('tradeurs')
+        print(form.errors)
+        # if form.is_valid():
+        tradeur = Tradeur(
+            nom=request.POST['nom'],
+            prenom=request.POST['prenom'],
+            email=request.POST['email'],
+            telephone=request.POST['telephone'],
+            sexe=request.POST['sexe']
+        )
+        if request.FILES.get('avatar'):
+            tradeur.avatar = request.FILES.get('avatar')
+        tradeur.save()
+        return redirect('tradeurs')
 
     return render(request, 'tradeur/ajouter.html', context)
 

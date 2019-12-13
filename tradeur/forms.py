@@ -74,7 +74,6 @@ class TradeurForm(Personne):
         widget=FileInput(
             attrs={
                 'class': "form-control",
-                'required': False,
             }
         ),
     )

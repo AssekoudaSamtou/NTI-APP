@@ -15,7 +15,7 @@ class Personne(models.Model):
 
 
 class Tradeur(Personne):
-    avatar = models.ImageField(upload_to="photos/", null=True)
+    avatar = models.ImageField(upload_to="photos/", null=True, blank=True)
 
 
 
