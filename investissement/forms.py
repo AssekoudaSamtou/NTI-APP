@@ -46,7 +46,7 @@ class InvestissementForm(ModelForm):
                     'class': 'form-control',
                     'required': True,
                 },
-                choices=[]#Investisseur.objects.all()
+                choices=Investisseur.objects.all()
             ),
         }
 
