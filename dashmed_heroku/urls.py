@@ -20,6 +20,8 @@ from django.urls import path, include
 from dashmed_heroku import settings
 from tradeur.views import home
 
+admin.autodiscover()
+
 urlpatterns = [
     path('', home, name="dashboard"),
     path('admin/', admin.site.urls),
