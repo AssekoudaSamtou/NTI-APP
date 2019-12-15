@@ -57,14 +57,14 @@ def modifier(request, pk):
 
 
 def supprimer(request, pk):
-    broker = Compte.objects.get(id=pk)
+    compte = Compte.objects.get(id=pk)
 
     if request.is_ajax():
         if request.method == "DELETE":
-            broker.delete()
+            compte.delete()
             return JsonResponse({"success": True})
     else:
         if request.method == "POST":
-            broker.delete()
+            compte.delete()
             return redirect('comptes')
         return redirect('comptes')
