@@ -3,6 +3,13 @@ from django.forms import ModelForm, Select, NumberInput, DateInput, TextInput
 from investisseur.models import Investisseur
 from .models import Investissement
 
+DUREE_CHOICES = [
+    ('1', '1 Mois'),
+    ('2', '2 Mois'),
+    ('3', '3 Mois'),
+    ('4', '4 Mois'),
+    ('5', '5 Mois')
+]
 
 class InvestissementForm(ModelForm):
     class Meta:
@@ -34,20 +41,19 @@ class InvestissementForm(ModelForm):
                     'disabled': False,
                 },
             ),
-            'duree': NumberInput(
+            'duree': Select(
                 attrs={
                     'class': 'form-control',
                     'required': True,
-                    'min': 1,
-                    'max': 5
                 },
+                choices=DUREE_CHOICES
             ),
             'investisseur': Select(
                 attrs={
                     'class': 'form-control',
                     'required': True,
                 },
-                choices=Investisseur.objects.all()
+                choices=[]#Investisseur.objects.all()
             ),
         }
 

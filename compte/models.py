@@ -28,7 +28,7 @@ class Mois(models.Model):
     numero = models.CharField(max_length=30)
     balance_debut = models.DateField()
     balance_courante = models.IntegerField()
-    exercice = models.ForeignKey('exercice.ExerciceCompte', related_name='mois', on_delete=models.DO_NOTHING)
+    compte = models.ForeignKey('exercice.ExerciceCompte', related_name='mois', on_delete=models.CASCADE)
 
     def __repr__(self):
         return f"{self.numero}"

@@ -20,19 +20,22 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>{% block title %}Dashboard - Brand{% endblock %}</title>
+{#	<link rel="stylesheet" href="{% static 'MDBootstrap/css/bootstrap.css' %}">#}
 	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'MDBootstrap/css/mdb.css' %}">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
 
 
-{#	<link rel="stylesheet" href="{% static 'css/dataTable/dataTables.bootstrap4.css' %}">#}
+	<link rel="stylesheet" href="{% static 'css/dataTable/dataTables.bootstrap4.css' %}">
+	<link rel="stylesheet" href="{% static 'css/dataTable/jquery.dataTables.css' %}">
 {#	<link rel="stylesheet" href="{% static 'css/dataTable/colReorder.bootstrap4.css' %}">#}
 {#	<link rel="stylesheet" href="{% static 'css/dataTable/responsive.bootstrap4.css' %}">#}
 {#	<link rel="stylesheet" href="{% static 'css/dataTable/rowGroup.bootstrap4.css' %}">#}
 {#	<link rel="stylesheet" href="{% static 'css/dataTable/rowReorder.bootstrap4.css' %}">#}
 {#	<link rel="stylesheet" href="{% static 'css/dataTable/scroller.bootstrap4.css' %}">#}
 {#	<link rel="stylesheet" href="{% static 'css/dataTable/select.bootstrap4.css' %}">#}
-	<link rel="stylesheet" href="{% static 'css/dataTable/jquery.dataTables.css' %}">
+
 
 	{% block stylesheets %}{% endblock stylesheets %}
 
@@ -59,8 +62,8 @@
 	</div>
 	
 
-	<script src="{% static 'js/jquery.min.js' %}"></script>
-	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'MDBootstrap/js/jquery.js' %}"></script>
+	<script src="{% static 'MDBootstrap/js/bootstrap.js' %}"></script>
 	<script src="{% static 'js/chart.min.js' %}"></script>
 	<script src="{% static 'js/bs-init.js' %}"></script>
 	<script src="{% static 'js/jquery.easing.js' %}"></script>
@@ -68,12 +71,14 @@
 
 
 	<script src="{% static 'js/dataTable/datatables.js' %}"></script>
-{#	<script src="{% static 'js/dataTable/dataTables.bootstrap4.js' %}"></script>#}
+	<script src="{% static 'js/dataTable/dataTables.bootstrap4.js' %}"></script>
 {#	<script src="{% static 'js/dataTable/dataTables.colReorder.js' %}"></script>#}
 {#	<script src="{% static 'js/dataTable/dataTables.responsive.js' %}"></script>#}
 {#	<script src="{% static 'js/dataTable/dataTables.rowGroup.js' %}"></script>#}
 {#	<script src="{% static 'js/dataTable/dataTables.select.js' %}"></script>#}
 {#	<script src="{% static 'js/dataTable/dataTables.scroller.js' %}"></script>#}
+    <script src="{% static 'MDBootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'MDBootstrap/js/mdb.js' %}"></script>
 
 
 	{% block javascripts %}{% endblock javascripts %}

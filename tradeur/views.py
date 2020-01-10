@@ -6,10 +6,6 @@ from tradeur.forms import TradeurForm
 from tradeur.models import Tradeur
 
 
-def home(request):
-    context = {}
-    return render(request, 'home.html', context)
-
 def index(request):
     context = {
         "tradeurs": Tradeur.objects.all()
@@ -25,8 +21,8 @@ def ajouter(request):
         print(form.errors)
         # if form.is_valid():
         tradeur = Tradeur(
-            nom=request.POST['nom'],
-            prenom=request.POST['prenom'],
+            first_name=request.POST['nom'],
+            last_name=request.POST['prenom'],
             email=request.POST['email'],
             telephone=request.POST['telephone'],
             sexe=request.POST['sexe']
@@ -43,8 +39,8 @@ def profile(request, pk):
     tradeur = Tradeur.objects.get(id=pk)
     form = TradeurForm(
         initial={
-            'nom': tradeur.nom,
-            'prenom': tradeur.prenom,
+            'nom': tradeur.first_name,
+            'prenom': tradeur.last_name,
             'email': tradeur.email,
             'telephone': tradeur.telephone,
             'sexe': tradeur.sexe,
@@ -60,8 +56,8 @@ def profile(request, pk):
 
         if form.is_valid():
             if form.has_changed():
-                tradeur.nom=request.POST['nom']
-                tradeur.prenom=request.POST['prenom']
+                tradeur.first_name=request.POST['nom']
+                tradeur.last_name=request.POST['prenom']
                 tradeur.email=request.POST['email']
                 tradeur.telephone=request.POST['telephone']
                 tradeur.sexe=request.POST['sexe']

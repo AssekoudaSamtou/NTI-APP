@@ -3,11 +3,12 @@ from django.db.models import ManyToManyField
 
 
 class Exercice(models.Model):
+    nom = models.CharField(max_length=225)
     date_debut = models.DateField()
     duree = models.PositiveSmallIntegerField(default=5)
     balance_initialisation = models.IntegerField()
-    objectif = models.PositiveSmallIntegerField(default=100)
-    mois = ManyToManyField(
+    objectif = models.PositiveSmallIntegerField(default=500)
+    comptes = ManyToManyField(
         'compte.Compte',
         through='ExerciceCompte',
         through_fields=('exercice', 'compte')

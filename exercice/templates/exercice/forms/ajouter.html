@@ -1,0 +1,55 @@
+{% load static %}
+
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_nom">
+                    <strong>Nom</strong>
+                </label>
+                {{ form.nom }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_prenom">
+                    <strong>Date Début</strong>
+                </label>
+{#                <input class="form-control" type="text" placeholder="Doe" name="last_name">#}
+                {{ form.date_debut }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_avatar">
+                    <strong>Durée</strong>
+                </label>
+                {{ form.duree }}
+                </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_telephone">
+                    <strong>Balance d'Initialisation</strong>
+                </label>
+                {{ form.balance_initialisation }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_email">
+                    <strong>Objectif </strong>
+                </label>
+                {{ form.objectif }}
+{#                <input class="form-control" type="email" placeholder="user@example.com" name="email">#}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary btn-sm" type="submit">Ajouter</button>
+    </div>
+</form>

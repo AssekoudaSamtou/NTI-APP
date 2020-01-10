@@ -23,14 +23,14 @@ class CompteForm(forms.ModelForm):
                     'class': 'form-control',
                     # 'required': False,
                 },
-                choices=Tradeur.objects.all(),
+                choices=[]#Tradeur.objects.all(),
             ),
             'broker': Select(
                 attrs={
                     'class': 'form-control',
                     'required': True,
                 },
-                choices=Tradeur.objects.all()
+                choices=[]#Tradeur.objects.all()
             ),
             'montant_investi': NumberInput(
                 attrs={

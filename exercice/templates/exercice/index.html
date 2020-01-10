@@ -3,24 +3,46 @@
 
 {% block title %}Home{% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/exercice/index.css' %}">
 {% endblock %}
 
 {% block content %}
 	<div class="container-fluid">
 		<div class="container-fluid">
-			<h3 class="text-dark mb-4">Team</h3>
+{#			<h3 class="text-dark mb-4">Team</h3>#}
 			<div class="card shadow">
 				<div class="card-header py-3">
-					<p class="text-primary m-0 font-weight-bold">Employee Info</p>
+					<p class="text-primary m-0 font-weight-bold lead">Liste des Projets</p>
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-6 text-nowrap">
-							<div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Show <select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div>
+						<div class="col-md-5 text-nowrap">
+							<div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+								<label>
+									Show 
+									<select class="form-control form-control-sm custom-select custom-select-sm">
+										<option value="10" selected>10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select>
+								</label>
+							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" /></label></div>
+						<div class="col-md-2">
+							<div class="mb-3">
+								<a class="btn btn-primary btn-sm" href="{% url 'ajouter_exercice' %} ">
+									<i class="fas fa-plus"></i>
+									Ajouter
+								</a>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="text-md-right dataTables_filter" id="dataTable_filter">
+								<label>
+									<input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" />
+								</label>
+							</div>
 						</div>
 					</div>
 					<div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -28,15 +50,27 @@
 							<thead>
 								<tr>
 									<th>Nom</th>
-									<th>Site Web</th>
-								</tr>
+									<th>Date Début</th>
+									<th>Durée</th>
+									<th>Balance d'Initialisation</th>
+                                    <th>Objectif</th>
+                                </tr>
 							</thead>
 							<tbody>
 
-                                {% for broker in brokers %}
-                                    <tr>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
+                                {% for tradeur in tradeurs %}
+                                    <tr onclick="console.log('ok'); window.location = '{% url "profile_tradeur" pk=tradeur.id %}';" style="cursor: pointer;">
+                                        <td>
+                                            {% if tradeur.avatar %}
+                                                <img class="rounded-circle mr-2" width="30" height="30" src="{{tradeur.avatar.url}}"  alt="avatar"/>
+                                            {% else %}
+                                                <img class="rounded-circle mr-2" width="30" height="30" src="{% static 'img/avatars/avatar6.png' %}"  alt="avatar"/>
+                                            {% endif %}
+                                            {{ tradeur.nom }} {{ tradeur.prenom }}
+                                        </td>
+                                        <td>{{ tradeur.telephone }}</td>
+                                        <td><a href="mailto:{{ tradeur.email }}">{{ tradeur.email }}</a></td>
+                                        <td>{{ tradeur.sexe }}</td>
                                     </tr>
                                 {% endfor %}
 
@@ -44,8 +78,11 @@
 							<tfoot>
 								<tr>
 									<td><strong>Nom</strong></td>
-									<td><strong>Site Web</strong></td>
-								</tr>
+									<td><strong>Date Début</strong></td>
+									<td><strong>Durée</strong></td>
+									<td><strong>Balance d'Initialisation</strong></td>
+                                    <td><strong>Objectif</strong></td>
+                                </tr>
 							</tfoot>
 						</table>
 					</div>
@@ -69,4 +106,8 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/exercice/index.js' %}"></script>
 {% endblock %}
