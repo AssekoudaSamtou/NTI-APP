@@ -8,6 +8,7 @@ class Investisseur(User):
 	telephone = models.CharField(max_length=20, unique=True)
 	sexe = models.CharField(max_length=1)
 	parrain = models.ForeignKey('Investisseur', related_name='fieuls', on_delete=models.CASCADE, null=True, blank=True)
+	init_password = models.CharField(max_length=50)
 
 	def __repr__(self):
 		return f"{self.first_name} {self.last_name}"

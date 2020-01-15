@@ -1,14 +1,16 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
-from django.http import JsonResponse
+from django.contrib.auth.models import User, Group
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 
 from password_generator import PasswordGenerator
 
+from investissement.models import Investissement
 from investisseur.forms import InvestisseurForm
 from investisseur.models import Investisseur
-
+from payement.models import Payement
 
 pwo = PasswordGenerator()
 
@@ -29,16 +31,18 @@ def ajouter(request):
     if request.method == 'POST':
         form = InvestisseurForm(request.POST)
         print(form.errors)
-        print(request.POST['parrain'])
+        print(request.POST['username'])
+        print(form.is_valid())
         if form.is_valid():
-            Investisseur.objects.create(
-                first_name=request.POST['first_name'],
-                last_name=request.POST['last_name'],
-                email=request.POST['email'],
-                telephone=request.POST['telephone'],
-                sexe=request.POST['sexe'],
-                password=make_password(pwo.generate()),
-            )
+            first_password = pwo.generate()
+            print(first_password)
+            investisseur = form.save()
+            investisseur.password = make_password(first_password)
+            investisseur.init_password = first_password
+            investisseur.save()
+            investisseur_grp = Group.objects.get(name="investisseur")
+            investisseur_grp.user_set.add(investisseur)
+
             return redirect('investisseurs')
 
     return render(request, 'investisseur/ajouter.html', context)
@@ -97,6 +101,20 @@ def supprimer(request, pk):
 
 @login_required
 def espace(request):
-    context = {}
-    context['investisseur'] = Investisseur.objects.get(id=request.user.id)
+    try:
+        user = Investisseur.objects.get(id=request.user.id)
+    except Investisseur.DoesNotExist:
+        raise Http404("Investisseur Not Found")
+
+    investissements = user.investissements.all()
+    payements = Payement.objects.filter(investissement__investisseur=user)
+    context = {
+        'investisseur': user,
+        'investissements_en_cours': [i for i in investissements if not i.is_finish()],
+        'somme_investissements': sum(i.montant for i in investissements if not i.is_finish()),
+        'investissements_termine': [i for i in investissements if i.is_finish()],
+        'nb_virements': len([p for p in payements if p.status == "VR"]), #Virement effetuer
+        'gains': sum([p.montant for p in payements if p.status == "NP"])
+    }
+
     return render(request, 'investisseur/espace/index.html', context)

@@ -37,9 +37,13 @@ class Investissement(models.Model):
 			payement = Payement(
 				investissement=self,
 				date=base_date,
-				montant=montant_payement,
-				status="NP"
+				montant=montant_payement
 			)
 
 			payement.investissement = self
 			payement.save()
+
+	def is_finish(self):
+		today = date.today()
+		invest_end = incrementer_date(self.date_decompte, 30 * self.duree)
+		return today > invest_end

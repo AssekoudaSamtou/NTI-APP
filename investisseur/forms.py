@@ -12,21 +12,29 @@ SEX_CHOICES = [
 class InvestisseurForm(ModelForm):
     class Meta:
         model = Investisseur
-        fields = ['first_name', 'last_name', 'email', 'telephone', 'sexe', 'parrain']
+        fields = ['first_name', 'last_name', 'email', 'telephone', 'sexe', 'parrain', 'username']
 
         widgets = {
             'first_name': TextInput(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'form-control names',
                     'required': True,
                     'placeholder': "John",
                 },
             ),
             'last_name': TextInput(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'form-control names',
                     'required': True,
                     'placeholder': "Doe",
+                },
+            ),
+            'username': TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                    'placeholder': "ex : DoeJhon",
+                    # 'disabled': 'disabled'
                 },
             ),
             'email': EmailInput(
@@ -54,7 +62,6 @@ class InvestisseurForm(ModelForm):
                 attrs={
                     'class': "form-control",
                 },
-                choices=[]#Investisseur.objects.all(),
             ),
         }
 

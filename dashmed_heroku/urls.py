@@ -24,22 +24,19 @@ from dashmed_heroku._views import home
 admin.autodiscover()
 
 urlpatterns = [
+    # path('account/', include('django.contrib.auth.urls')),
     path('', home, name="home"),
     path('admin/', admin.site.urls),
-	path('brokers/', include('broker.urls')),
-	path('comptes/', include('compte.urls')),
-	path('tradeurs/', include('tradeur.urls')),
-	path('payements/', include('payement.urls')),
-	path('exercices/', include('exercice.urls')),
-	path('operations/', include('operation.urls')),
-	path('commerciaux/', include('commerciaux.urls')),
-	path('investisseurs/', include('investisseur.urls')),
-	path('investissements/', include('investissement.urls')),
-	path('logout/', auth_views.LogoutView.as_view(), name="logout"),
-	path('login/', auth_views.LoginView.as_view(template_name='login.html'), name="login"),
+    path('brokers/', include('broker.urls')),
+    path('comptes/', include('compte.urls')),
+    path('tradeurs/', include('tradeur.urls')),
+    path('payements/', include('payement.urls')),
+    path('exercices/', include('exercice.urls')),
+    path('operations/', include('operation.urls')),
+    path('commerciaux/', include('commerciaux.urls')),
+    path('investisseurs/', include('investisseur.urls')),
+    path('investissements/', include('investissement.urls')),
+    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name="login"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
-
