@@ -118,3 +118,13 @@ def espace(request):
     }
 
     return render(request, 'investisseur/espace/index.html', context)
+
+
+@login_required
+def investissements(request):
+    try:
+        user = Investisseur.objects.get(id=request.user.id)
+    except Investisseur.DoesNotExist:
+        raise Http404("Investisseur Not Found")
+
+    return render(request, 'investisseur/espace/investissements/liste.html')

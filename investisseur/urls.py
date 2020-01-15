@@ -8,5 +8,7 @@ urlpatterns = [
     path('ajouter/', views.ajouter, name="ajouter_investisseur"),
     path('modifier/<int:pk>/', views.modifier, name="modifier_investisseur"),
     path('supprimer/<int:pk>/', views.supprimer, name="supprimer_investisseur"),
+
     path('espace/', views.espace, name="espace_investisseur"),
+    path('espace/investissements', views.investissements, name="investissements_investisseur"),
 ]
