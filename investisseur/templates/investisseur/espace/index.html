@@ -22,10 +22,10 @@
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
                                 <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
-                                    <span>Mes Investissements</span>
+                                    <span>Mes Investissements ({{ investissements_en_cours|length }})</span>
                                 </div>
                                 <div class="text-dark font-weight-bold h5 mb-0">
-                                    <span>({{ investissements_en_cours|length }}) {{ somme_investissements }} Fcfa </span>
+                                    <span>{{ somme_investissements }} Fcfa </span>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -41,7 +41,7 @@
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
                                 <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
-                                    <span>Gains Genérer</span>
+                                    <span>Gains GenérerS</span>
                                 </div>
                                 <div class="text-dark font-weight-bold h5 mb-0"><span>{{ gains }} Fcfa</span></div>
                             </div>
