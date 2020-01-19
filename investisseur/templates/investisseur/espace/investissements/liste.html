@@ -20,24 +20,23 @@
                     <h4 class="small font-weight-bold">
                         <span>Investissment du {{ investissement.date_decompte }}</span><br><br>
                         <div class="d-flex justify-content-between ">
-                            <div>Du {{ investissement|debut_payement }}</div>
-                            <div>Payement No {{ investissement|payement_number }}</div>
-                            <div>Au {{ investissement|payement_date }}</div>
+                            <div>Du {{ investissement.payement_courant.debut_payement }}</div>
+                            <div>Payement No {{ investissementpayement_courant.rang }}</div>
+                            <div>Au {{ investissement.payement_courant.date }}</div>
                         </div>
-{#                        <span class="float-right">20%</span>#}
                     </h4>
                     <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ investissement|percentage }}%">
                         <div class="progress-bar
-                                    {% if investissement|percentage < 50 %}
+                                    {% if investissement.payement_courant.pourcentage < 50 %}
                                         bg-danger
-                                    {% elif investissement|percentage == 50 %}
+                                    {% elif investissement.payement_courant.pourcentage == 50 %}
                                         bg-gradient-primary
-                                    {% elif investissement|percentage > 50 and investissement|percentage < 80 %}
+                                    {% elif investissement.payement_courant.pourcentage > 50 and investissement.payement_courant.pourcentage < 80 %}
                                         bg-gradient-info
-                                    {% elif investissement|percentage > 80 %}
+                                    {% elif investissement.payement_courant.pourcentage > 80 %}
                                         bg-success
-                                    {% endif %}" aria-valuenow="{{ investissement|percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement|percentage }}%;">
-                            <span class="sr-only">{{ investissement|percentage }}</span>
+                                    {% endif %}" aria-valuenow="{{ investissement.payement_courant.pourcentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement.payement_courant.pourcentage }}%;">
+                            <span class="sr-only">{{ investissement.payement_courant.pourcentage }}</span>
                         </div>
                     </div>
 
@@ -51,7 +50,7 @@
             </div>
             <div class="card-body">
 
-                {% for investissement in encours %}
+                {% for investissement in investissements %}
 
                     <h4 class="small font-weight-bold">
                         <span>Investissment du {{ investissement.date_decompte }}</span><br><br>
@@ -60,22 +59,18 @@
                             <div>Payement No {{ investissement|payement_number }}</div>
                             <div>Au {{ investissement|payement_date }}</div>
                         </div>
-{#                        <span class="float-right">20%</span>#}
                     </h4>
-                    <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ investissement|percentage }}%">
-                        <div class="progress-bar
-                                    {% if investissement|percentage < 50 %}
-                                        bg-danger
-                                    {% elif investissement|percentage == 50 %}
-                                        bg-gradient-primary
-                                    {% elif investissement|percentage > 50 and investissement|percentage < 80 %}
-                                        bg-gradient-info
-                                    {% elif investissement|percentage > 80 %}
-                                        bg-success
-                                    {% endif %}" aria-valuenow="{{ investissement|percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement|percentage }}%;">
-                            <span class="sr-only">{{ investissement|percentage }}</span>
-                        </div>
-                    </div>
+
+                    {% for payement in investissement.payements.all %}
+                        {% if payement.date %}
+                            <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ investissement|percentage }}%">
+                                <div class="progress-bar bg-success" aria-valuenow="{{ investissement|percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement|percentage }}%;">
+                                    <span class="sr-only">{{ investissement|percentage }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% empty %}
 
                 {% endfor %}
 

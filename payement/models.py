@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django.db import models
 
@@ -23,3 +23,20 @@ class Payement(models.Model):
 
     def __repr__(self):
         return f"Payement n° {self.id}"
+
+    def debut_payement(self):
+        return self.date - timedelta(days=30)
+
+    def pourcentage(self):
+        temps_ecoule = timedelta(days=30) - (self.date - date.today())
+        pourcentage = temps_ecoule.days * 100 / 30
+        return pourcentage
+
+    def rang(self):
+        rank = 1
+        # payements = investissement.payements.all()
+        payements = self.__class__.objects.filter(investissement=self.investissement)
+        for i in range(len(payements)):
+            if payements[i].status not in ('VR', 'RE'):
+                return i + 1
+        return rank
