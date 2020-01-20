@@ -140,3 +140,7 @@ def liste_investissements(request):
     }
 
     return render(request, 'investisseur/espace/investissements/liste.html', context=context)
+
+
+def liste_filleuls(request):
+    return None

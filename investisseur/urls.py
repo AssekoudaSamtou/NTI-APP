@@ -11,4 +11,5 @@ urlpatterns = [
 
     path('espace/', views.espace, name="espace_investisseur"),
     path('espace/investissements', views.liste_investissements, name="investissements_investisseur"),
+    path('espace/filleuls', views.liste_filleuls, name="investissements_investisseur"),
 ]
