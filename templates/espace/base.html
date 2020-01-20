@@ -40,6 +40,7 @@
 	</div>
 
 	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'MDBootstrap/js/popper.min.js' %}"></script>
 	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'js/chart.min.js' %}"></script>
 	<script src="{% static 'js/bs-init.js' %}"></script>
@@ -48,6 +49,11 @@
 
 	<script src="{% static 'js/dataTable/datatables.js' %}"></script>
 	<script src="{% static 'js/dataTable/dataTables.bootstrap4.js' %}"></script>
+	<script type="application/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 
 
 	{% block javascripts %}{% endblock javascripts %}

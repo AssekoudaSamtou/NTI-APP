@@ -47,3 +47,11 @@ class Investissement(models.Model):
 		today = date.today()
 		invest_end = incrementer_date(self.date_decompte, 30 * self.duree)
 		return today > invest_end
+
+	def payement_courant(self):
+		payement = self.payements.filter(status=None).order_by('date').first()
+		return payement
+
+	def payements_termines(self):
+		payements = self.payements.filter(status__in=("VR", "RE")).order_by('date')
+		return payements

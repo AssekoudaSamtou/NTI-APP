@@ -1,18 +1,23 @@
+from datetime import date
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User, Group
+from django.db.models import QuerySet
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 
 from password_generator import PasswordGenerator
 
 from investissement.models import Investissement
+from investissement.utils import incrementer_date
 from investisseur.forms import InvestisseurForm
 from investisseur.models import Investisseur
 from payement.models import Payement
 
 pwo = PasswordGenerator()
+
 
 @login_required
 @staff_member_required
@@ -113,8 +118,31 @@ def espace(request):
         'investissements_en_cours': [i for i in investissements if not i.is_finish()],
         'somme_investissements': sum(i.montant for i in investissements if not i.is_finish()),
         'investissements_termine': [i for i in investissements if i.is_finish()],
-        'nb_virements': len([p for p in payements if p.status == "VR"]), #Virement effetuer
+        'nb_virements': len([p for p in payements if p.status == "VR"]),  # Virement effetuer
         'gains': sum([p.montant for p in payements if p.status == "NP"])
     }
 
     return render(request, 'investisseur/espace/index.html', context)
+
+
+@login_required
+def liste_investissements(request):
+    try:
+        user = Investisseur.objects.get(id=request.user.id)
+    except Investisseur.DoesNotExist:
+        raise Http404("Investisseur Not Found")
+
+    investissements = user.investissements.all()
+    encours = [i for i in investissements if incrementer_date(i.date_decompte, 30 * i.duree) > date.today()]
+
+    context = {
+        'encours': encours,
+        'investissements': investissements,
+    }
+
+    return render(request, 'investisseur/espace/investissements/liste.html', context=context)
+
+
+def liste_filleuls(request):
+    context = {}
+    return render(request, 'investisseur/espace/filleuls/liste.html', context=context)
