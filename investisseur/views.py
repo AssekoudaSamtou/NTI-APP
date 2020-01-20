@@ -18,6 +18,7 @@ from payement.models import Payement
 
 pwo = PasswordGenerator()
 
+
 @login_required
 @staff_member_required
 def index(request):
@@ -117,7 +118,7 @@ def espace(request):
         'investissements_en_cours': [i for i in investissements if not i.is_finish()],
         'somme_investissements': sum(i.montant for i in investissements if not i.is_finish()),
         'investissements_termine': [i for i in investissements if i.is_finish()],
-        'nb_virements': len([p for p in payements if p.status == "VR"]), #Virement effetuer
+        'nb_virements': len([p for p in payements if p.status == "VR"]),  # Virement effetuer
         'gains': sum([p.montant for p in payements if p.status == "NP"])
     }
 
@@ -132,7 +133,7 @@ def liste_investissements(request):
         raise Http404("Investisseur Not Found")
 
     investissements = user.investissements.all()
-    encours = [i for i in investissements if incrementer_date(i.date_decompte, 30*i.duree) > date.today()]
+    encours = [i for i in investissements if incrementer_date(i.date_decompte, 30 * i.duree) > date.today()]
 
     context = {
         'encours': encours,
@@ -143,4 +144,5 @@ def liste_investissements(request):
 
 
 def liste_filleuls(request):
-    return None
+    context = {}
+    return render(request, 'investisseur/espace/filleuls/liste.html', context=context)
