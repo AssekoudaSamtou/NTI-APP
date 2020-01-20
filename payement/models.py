@@ -39,4 +39,5 @@ class Payement(models.Model):
         for i in range(len(payements)):
             if payements[i].status not in ('VR', 'RE'):
                 return i + 1
+        print("rank : ", rank)
         return rank

@@ -18,14 +18,20 @@
                 {% for investissement in encours %}
 
                     <h4 class="small font-weight-bold">
-                        <span>Investissment du {{ investissement.date_decompte }}</span><br><br>
-                        <div class="d-flex justify-content-between ">
+                        <span style="font-size: 20px;" class="font-italic">Investissment: <i class="fa fa-calendar fa-2x text-info" title=" date du début du du decompte des 30 jours"></i> {{ investissement.date_decompte }}</span><br><br>
+                        <div class="d-flex justify-content-between text-gray-500">
                             <div>Du {{ investissement.payement_courant.debut_payement }}</div>
-                            <div>Payement No {{ investissementpayement_courant.rang }}</div>
+                            <div>
+                                Payement No {{ investissement.payement_courant.rang }} :
+                                <span title="gain généré" class="text-dark">
+                                    {{ investissement.payement_courant.montant }}
+                                    <span>Fcfa</span>
+                                </span>
+                            </div>
                             <div>Au {{ investissement.payement_courant.date }}</div>
                         </div>
                     </h4>
-                    <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ investissement|percentage }}%">
+                    <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ investissement.payement_courant.pourcentage }}%">
                         <div class="progress-bar
                                     {% if investissement.payement_courant.pourcentage < 50 %}
                                         bg-danger
@@ -41,6 +47,7 @@
                     </div>
 
                 {% endfor %}
+
             </div>
         </div>
 
@@ -53,43 +60,46 @@
                 {% for investissement in investissements %}
 
                     <h4 class="small font-weight-bold">
-                        <span>Investissment du {{ investissement.date_decompte }}</span><br><br>
+                        <span style="font-size: 20px;" class="font-italic">
+                            Investissment: <i class="fa fa-calendar fa-2x text-info" title=" date du début du du decompte des 30 jours"></i> {{ investissement.date_decompte }}
+                        </span><br><br>
+
+                    {% for payement in investissement.payements_termines %}
                         <div class="d-flex justify-content-between ">
-                            <div>Du {{ investissement|debut_payement }}</div>
-                            <div>Payement No {{ investissement|payement_number }}</div>
-                            <div>Au {{ investissement|payement_date }}</div>
+                            <div>Du {{ payement.debut_payement }}</div>
+                            <div>
+                                Payement No {{ payement.rang }} :
+                                <span title="gain généré" class="text-dark">
+                                    {{ payement.montant }}
+                                    <span>Fcfa</span>
+                                </span>
+                            </div>
+                            <div>Au {{ payement.date }}</div>
                         </div>
                     </h4>
 
-                    {% for payement in investissement.payements.all %}
-                        {% if payement.date %}
-                            <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ investissement|percentage }}%">
-                                <div class="progress-bar bg-success" aria-valuenow="{{ investissement|percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement|percentage }}%;">
-                                    <span class="sr-only">{{ investissement|percentage }}</span>
-                                </div>
+
+                        <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ payement.pourcentage }}%">
+                            <div class="progress-bar bg-success" aria-valuenow="{{ payement.pourcentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ payement.pourcentage }}%;">
+                                <span class="sr-only">{{ payement.pourcentage }}</span>
                             </div>
-                        {% endif %}
-                    {% endfor %}
+                        </div>
                     {% empty %}
+
+                        <p class="lead text-center text-danger">Oups!!! Aucun payement pour cet investissement.</p>
+
+                    {% endfor %}
+
+                {% empty %}
+
+                    <p class="lead text-center text-danger">Oups!!! Vous n'avez fait aucun investssement.</p>
 
                 {% endfor %}
 
-                <h4 class="small font-weight-bold">Sales tracking<span class="float-right">40%</span></h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"><span class="sr-only">40%</span></div>
-                </div>
-                <h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><span class="sr-only">60%</span></div>
-                </div>
-                <h4 class="small font-weight-bold">Payout Details<span class="float-right">80%</span></h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"><span class="sr-only">80%</span></div>
-                </div>
-                <h4 class="small font-weight-bold">Account setup<span class="float-right">Complete!</span></h4>
-                <div class="progress mb-4">
-                    <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="sr-only">100%</span></div>
-                </div>
+{#                <h4 class="small font-weight-bold">Payout Details<span class="float-right">80%</span></h4>#}
+{#                <div class="progress mb-4">#}
+{#                    <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"><span class="sr-only">80%</span></div>#}
+{#                </div>#}
             </div>
         </div>
     </div>

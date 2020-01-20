@@ -51,3 +51,7 @@ class Investissement(models.Model):
 	def payement_courant(self):
 		payement = self.payements.filter(status=None).order_by('date').first()
 		return payement
+
+	def payements_termines(self):
+		payements = self.payements.filter(status__in=("VR", "RE")).order_by('date')
+		return payements
