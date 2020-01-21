@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # local applications
     'broker',
     'compte',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'payement',
     'tradeur',
     'commerciaux',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -139,10 +141,10 @@ MEDIA_URL = '/media/'
 
 django_heroku.settings(locals())
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'accounts/login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'accounts/login'
 
 
-AUTHENTICATION_BACKENDS = ['dashmed_heroku._views.EmailBackend',]
+AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend',]
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
