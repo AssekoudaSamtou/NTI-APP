@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.models import User
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 
 from commerciaux.models import Commercial
-from investisseur.models import Investisseur
 from tradeur.models import Tradeur
 
 TEMPLATES = {
@@ -12,6 +12,7 @@ TEMPLATES = {
     'tradeur': 'tradeur/espace/index.html',
     'commercial': 'commerciaux/espace/index.html',
 }
+
 
 def home(request):
     context = {}
@@ -24,7 +25,6 @@ def home(request):
     groups = request.user.groups.all()
     if len(groups) >= 1:
         if groups[0].name == 'investisseur':
-
             return redirect('espace_investisseur')
 
         if groups[0].name == 'tradeur':
@@ -38,13 +38,19 @@ def home(request):
 
 
 class EmailBackend(ModelBackend):
-    def authenticate(self, username=None, password=None, **kwargs):
-        UserModel = get_user_model()
+
+    def authenticate(self, request, username=None, password=None, **kwargs):
         try:
-            user = UserModel.objects.get(email=username)
-        except UserModel.DoesNotExist:
+            user = User.objects.get(email=username)
+        except User.DoesNotExist:
             return None
-        else:
-            if user.check_password(password):
-                return user
+
+        if getattr(user, 'is_active') and user.check_password(password):
+            return user
         return None
+
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None
