@@ -1,0 +1,194 @@
+{% extends 'investisseur/espace/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <div id="content">
+        <div class="container-fluid">
+            <h3 class="text-dark mb-4">Profile</h3>
+            <div class="row mb-3">
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-body text-center shadow">
+                            <img class="rounded-circle mb-3 mt-4" src="{% static 'img/avatars/avatar6.png' %}" width="160" height="160" />
+                            <div class="mb-3">
+{#                                <button class="btn btn-primary btn-sm" type="button">Change Photo</button>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row mb-3 ">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card text-white bg-primary shadow">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <p class="m-0">Peformance</p>
+                                            <p class="m-0"><strong>65.2%</strong></p>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                    </div>
+                                    <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card text-white bg-success shadow">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <p class="m-0">Peformance</p>
+                                            <p class="m-0"><strong>65.2%</strong></p>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                    </div>
+                                    <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card text-white bg-primary shadow">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <p class="m-0">Peformance</p>
+                                            <p class="m-0"><strong>65.2%</strong></p>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                    </div>
+                                    <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card text-white bg-success shadow">
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col">
+                                            <p class="m-0">Peformance</p>
+                                            <p class="m-0"><strong>65.2%</strong></p>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                    </div>
+                                    <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last month</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="text-primary font-weight-bold m-0">Informations personnelles</h6>
+                            <div class="dropdown no-arrow">
+                                <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#exampleModalCenter" aria-expanded="false" type="button">
+                                    <i class="fas fa-edit text-success"></i>MODIFIER
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-row justify-content-start">
+                                <div class="d-flex flex-column">
+                                    <div class="py-4 px-5">Nom </div>
+                                    <div class="p-4 px-5">Prénoms </div>
+                                    <div class="p-4 px-5">Pseudo </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="py-4 px-5"> : </div>
+                                    <div class="p-4 px-5"> : </div>
+                                    <div class="p-4 px-5"> : </div>
+                                </div>
+                                <div class="d-flex flex-column font-weight-bolder">
+                                    <div class="p-4 px-5">ASSEKOUDA</div>
+                                    <div class="p-4 px-5">Samtou Christophe</div>
+                                    <div class="p-4 px-5">samtou</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold">Contact Settings</p>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group"><label for="address"><strong>Address</strong></label><input class="form-control" type="text" placeholder="Sunset Blvd, 38" name="address" /></div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="city"><strong>City</strong></label><input class="form-control" type="text" placeholder="Los Angeles" name="city" /></div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group"><label for="country"><strong>Country</strong></label><input class="form-control" type="text" placeholder="USA" name="country" /></div>
+                                    </div>
+                                </div>
+                                <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="">
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nom">
+                                        <strong>Nom</strong>
+                                    </label>
+                                    <input id="nom" class="form-control" type="text" placeholder="mon nom" name="nom" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="prenoms">
+                                        <strong>Prénoms</strong>
+                                    </label>
+                                    <input id="prenoms" class="form-control" type="text" placeholder="mes prénoms" name="prenom" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="pseudo">
+                                        <strong>Pseudo</strong>
+                                    </label>
+                                    <input id="pseudo" class="form-control" type="text" placeholder="John" name="pseudo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button id="submit_info_perso" class="d-none btn btn-primary btn-sm" type="submit"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">annuler</button>
+                    <button type="button" onclick="$('#submit_info_perso').trigger('click');" class="btn btn-primary btn-sm">sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'js/accounts/profile.js' %}" type="application/javascript"></script>
+{% endblock %}
