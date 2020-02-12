@@ -1,7 +1,4 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User
-from django.http import JsonResponse, Http404
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 from commerciaux.models import Commercial

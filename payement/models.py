@@ -6,6 +6,7 @@ from investissement.models import Investissement
 
 STATUS_CHOICES = [
     ('NP', 'Non Payé'),
+    ('EC', 'En Cours'),
     ('VR', 'Virement Effectué'),
     ('RE', 'Reçu'),
 ]

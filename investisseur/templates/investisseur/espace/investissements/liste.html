@@ -31,7 +31,19 @@
                             <div>Au {{ investissement.payement_courant.date }}</div>
                         </div>
                     </h4>
-                    <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ investissement.payement_courant.pourcentage }}%">
+
+                    {% if investissement.payement_courant.pourcentage < 100 %}
+                        <div class="progress mb-4"
+                             data-toggle="tooltip"
+                             data-placement="top"
+                             title="{{ investissement.payement_courant.pourcentage }}%">
+                    {% else %}
+                        <div class="progress mb-4"
+                             data-toggle="tooltip"
+                             data-placement="top"
+                             title="Terminé: Payement en Cours...">
+                    {% endif %}
+
                         <div class="progress-bar
                                     {% if investissement.payement_courant.pourcentage < 50 %}
                                         bg-danger
@@ -44,6 +56,7 @@
                                     {% endif %}" aria-valuenow="{{ investissement.payement_courant.pourcentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement.payement_courant.pourcentage }}%;">
                             <span class="sr-only">{{ investissement.payement_courant.pourcentage }}</span>
                         </div>
+
                     </div>
 
                 {% endfor %}
@@ -86,13 +99,13 @@
                         </div>
                     {% empty %}
 
-                        <p class="lead text-center text-danger">Oups!!! Aucun payement pour cet investissement.</p>
+                        <p class="lead text-center text-danger">Oups!!! Aucun payement terminé pour cet investissement.</p>
 
                     {% endfor %}
 
                 {% empty %}
 
-                    <p class="lead text-center text-danger">Oups!!! Vous n'avez fait aucun investssement.</p>
+                    <p class="lead text-center text-danger">Oups!!! Vous n'avez fait aucun investissement.</p>
 
                 {% endfor %}
 

@@ -13,7 +13,7 @@
                         <div class="card-body text-center shadow">
                             <img class="rounded-circle mb-3 mt-4" src="{% static 'img/avatars/avatar6.png' %}" width="160" height="160" />
                             <div class="mb-3">
-{#                                <button class="btn btn-primary btn-sm" type="button">Change Photo</button>#}
+                                <button class="btn btn-primary btn-sm" type="button">Changer Photo</button>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Informations personnelles</h6>
                             <div class="dropdown no-arrow">
-                                <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#exampleModalCenter" aria-expanded="false" type="button">
+                                <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#infoPersoModal" aria-expanded="false" type="button">
                                     <i class="fas fa-edit text-success"></i>MODIFIER
                                 </button>
                             </div>
@@ -110,23 +110,55 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow">
-                        <div class="card-header py-3">
-                            <p class="text-primary m-0 font-weight-bold">Contact Settings</p>
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <p class="text-primary m-0 font-weight-bold">Adresse Email</p>
+                            <div class="dropdown no-arrow">
+                                <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#emailModal" aria-expanded="false" type="button">
+                                    <i class="fas fa-edit text-success"></i>MODIFIER
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <form>
-                                <div class="form-group"><label for="address"><strong>Address</strong></label><input class="form-control" type="text" placeholder="Sunset Blvd, 38" name="address" /></div>
-                                <div class="form-row">
-                                    <div class="col">
-                                        <div class="form-group"><label for="city"><strong>City</strong></label><input class="form-control" type="text" placeholder="Los Angeles" name="city" /></div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group"><label for="country"><strong>Country</strong></label><input class="form-control" type="text" placeholder="USA" name="country" /></div>
+                            <div class="d-flex flex-row justify-content-start">
+                                <div class="d-flex flex-column">
+                                    <div class="py-4 px-5">Adresse Email</div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="py-4 px-5"> : </div>
+                                </div>
+                                <div class="d-flex flex-column font-weight-bolder">
+                                    <div class="p-4 px-5">sam@gmail.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <p class="text-primary m-0 font-weight-bold">Mot de passe</p>
+                            <div class="dropdown no-arrow">
+                                <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#passwordModal" aria-expanded="false" type="button">
+                                    <i class="fas fa-edit text-success"></i>MODIFIER
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-row justify-content-start">
+                                <div class="d-flex flex-column">
+                                    <div class="py-4 px-5">Mot de passe </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="py-4 px-5"> : </div>
+                                </div>
+                                <div class="d-flex flex-column font-weight-bolder">
+                                    <div id="hidden_password" class="p-4 px-5">********</div>
+                                </div>
+                                <div class="d-flex flex-column font-weight-bolder">
+                                    <div class="p-4 px-5">
+                                        <i id="toggle-possword-icon" class="fas fa-eye text-success" onclick="showPassword()" style="cursor: pointer"></i>
                                     </div>
                                 </div>
-                                <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -135,11 +167,11 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="infoPersoModal" tabindex="-1" role="dialog" aria-labelledby="infoPersoModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <h5 class="modal-title" id="infoPersoModalTitle">Informations Personnelles</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -182,6 +214,96 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">annuler</button>
                     <button type="button" onclick="$('#submit_info_perso').trigger('click');" class="btn btn-primary btn-sm">sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalTitle">Changer le mot de passe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="">
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nom">
+                                        <strong>Ancien mot de passe</strong>
+                                    </label>
+                                    <input id="old_pass" class="form-control" type="text" placeholder="mon nom" name="old_pass" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nom">
+                                        <strong>Nouveau mot de passe</strong>
+                                    </label>
+                                    <input id="new_pass" class="form-control" type="text" placeholder="mon nom" name="new_pass" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nom">
+                                        <strong>Repeter Nouveau mot de passe</strong>
+                                    </label>
+                                    <input id="r_new_pass" class="form-control" type="text" placeholder="mon nom" name="r_new_pass" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button id="submit_password" class="d-none btn btn-primary btn-sm" type="submit"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">annuler</button>
+                    <button type="button" onclick="$('#submit_password').trigger('click');" class="btn btn-primary btn-sm">sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalTitle">Modifier l'email</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="">
+                        <div class="form-row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nom">
+                                        <strong>Nouvel Email</strong>
+                                    </label>
+                                    <input id="new_email" class="form-control" type="text" placeholder="" name="new_email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button id="submit_email" class="d-none btn btn-primary btn-sm" type="submit"></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">annuler</button>
+                    <button type="button" onclick="$('#submit_email').trigger('click');" class="btn btn-primary btn-sm">sauvegarder</button>
                 </div>
             </div>
         </div>
