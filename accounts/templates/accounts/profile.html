@@ -103,9 +103,9 @@
                                     <div class="p-4 px-5"> : </div>
                                 </div>
                                 <div class="d-flex flex-column font-weight-bolder">
-                                    <div class="p-4 px-5">ASSEKOUDA</div>
-                                    <div class="p-4 px-5">Samtou Christophe</div>
-                                    <div class="p-4 px-5">samtou</div>
+                                    <div class="p-4 px-5">{{ user.first_name }}</div>
+                                    <div class="p-4 px-5">{{ user.last_name }}</div>
+                                    <div class="p-4 px-5">{{ user.username }}</div>
                                 </div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                                     <div class="py-4 px-5"> : </div>
                                 </div>
                                 <div class="d-flex flex-column font-weight-bolder">
-                                    <div class="p-4 px-5">sam@gmail.com</div>
+                                    <div class="p-4 px-5">{{ user.email }}</div>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="">
+                    <form class="" method="post">
                         <div class="form-row">
                             <div class="col">
                                 <div class="form-group">
