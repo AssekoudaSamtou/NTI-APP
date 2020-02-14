@@ -33,6 +33,7 @@ def index(request):
 def ajouter(request):
     form = InvestisseurForm()
     context = {'form': form}
+
     if request.method == 'POST':
         form = InvestisseurForm(request.POST)
         print(form.errors)

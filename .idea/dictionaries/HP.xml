@@ -1,18 +1,23 @@
 <component name="ProjectDictionaryState">
   <dictionary name="HP">
     <words>
+      <w>adresse</w>
       <w>ajouter</w>
+      <w>aucun</w>
       <w>commerciaux</w>
       <w>compte</w>
       <w>courant</w>
       <w>cours</w>
+      <w>dashmed</w>
       <w>début</w>
       <w>ecoule</w>
       <w>elif</w>
       <w>encours</w>
       <w>espace</w>
+      <w>fait</w>
       <w>filleuls</w>
       <w>generer</w>
+      <w>informations</w>
       <w>investi</w>
       <w>investissement</w>
       <w>investissements</w>
@@ -23,16 +28,25 @@
       <w>montant</w>
       <w>numero</w>
       <w>objectif</w>
+      <w>oups</w>
       <w>payement</w>
       <w>payements</w>
       <w>payé</w>
+      <w>perso</w>
       <w>personne</w>
+      <w>personnelles</w>
       <w>poucentage</w>
       <w>pourcentage</w>
+      <w>prenom</w>
+      <w>prénoms</w>
+      <w>sauvegarder</w>
+      <w>smtp</w>
       <w>supprimer</w>
       <w>termine</w>
       <w>termines</w>
+      <w>terminé</w>
       <w>tradeur</w>
+      <w>vous</w>
     </words>
   </dictionary>
 </component>

@@ -15,16 +15,22 @@ class Investissement(models.Model):
 	duree = models.PositiveSmallIntegerField(default=1)
 
 	def __str__(self):
+		self.refresh_status_payements()
+
 		return f"investissement n° {self.id}"
 
 	def supprimer_payements(self):
 		from payement.models import Payement
+		self.refresh_status_payements()
+
 		payements = Payement.objects.filter(investissement=self)
 		for payement in payements:
 			payement.delete()
 
 	def generer_payements(self):
 		from payement.models import Payement
+		self.refresh_status_payements()
+
 		base_date = self.date_decompte
 		for i in range(self.duree):
 
@@ -44,14 +50,29 @@ class Investissement(models.Model):
 			payement.save()
 
 	def is_finish(self):
+		self.refresh_status_payements()
+
 		today = date.today()
 		invest_end = incrementer_date(self.date_decompte, 30 * self.duree)
 		return today > invest_end
 
 	def payement_courant(self):
-		payement = self.payements.filter(status=None).order_by('date').first()
+		self.refresh_status_payements()
+
+		payement = self.payements.filter(status__in=(None, "EC")).order_by('date').first()
 		return payement
 
 	def payements_termines(self):
+		self.refresh_status_payements()
+
 		payements = self.payements.filter(status__in=("VR", "RE")).order_by('date')
 		return payements
+
+	def refresh_status_payements(self):
+		payements = self.payements.filter(status=None)
+
+		for payement in payements:
+			if payement.date < date.today():
+				print(payement.date)
+				payement.status = "EC"
+				payement.save()

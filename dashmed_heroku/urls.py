@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views as auth_views
 
 from dashmed_heroku import settings
 from dashmed_heroku._views import home
@@ -36,7 +35,6 @@ urlpatterns = [
     path('commerciaux/', include('commerciaux.urls')),
     path('investisseurs/', include('investisseur.urls')),
     path('investissements/', include('investissement.urls')),
-    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name="login"),
+    path('accounts/', include('accounts.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
