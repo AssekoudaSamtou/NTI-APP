@@ -35,10 +35,9 @@ class Payement(models.Model):
 
     def rang(self):
         rank = 1
-        # payements = investissement.payements.all()
         payements = self.__class__.objects.filter(investissement=self.investissement)
+        print(payements)
         for i in range(len(payements)):
-            if payements[i].status not in ('VR', 'RE'):
+            if payements[i].id == self.id:
                 return i + 1
-        print("rank : ", rank)
         return rank
