@@ -32,32 +32,29 @@
                         </div>
                     </h4>
 
-                    {% if investissement.payement_courant.pourcentage < 100 %}
-                        <div class="progress mb-4"
-                             data-toggle="tooltip"
-                             data-placement="top"
-                             title="{{ investissement.payement_courant.pourcentage }}%">
-                    {% else %}
-                        <div class="progress mb-4"
-                             data-toggle="tooltip"
-                             data-placement="top"
-                             title="Terminé: Payement en Cours...">
-                    {% endif %}
 
-                        <div class="progress-bar
-                                    {% if investissement.payement_courant.pourcentage < 50 %}
-                                        bg-danger
-                                    {% elif investissement.payement_courant.pourcentage == 50 %}
-                                        bg-gradient-primary
-                                    {% elif investissement.payement_courant.pourcentage > 50 and investissement.payement_courant.pourcentage < 80 %}
-                                        bg-gradient-info
-                                    {% elif investissement.payement_courant.pourcentage > 80 %}
-                                        bg-success
-                                    {% endif %}" aria-valuenow="{{ investissement.payement_courant.pourcentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement.payement_courant.pourcentage }}%;">
-                            <span class="sr-only">{{ investissement.payement_courant.pourcentage }}</span>
+                        <div class="progress mb-4"
+                             data-toggle="tooltip"
+                             data-placement="top"
+                             title="{% if investissement.payement_courant.pourcentage < 100 %}
+                                        {{ investissement.payement_courant.pourcentage }}%
+                                    {% else %}
+                                        Terminé: Payement en Cours...
+                                    {% endif %}">
+
+                            <div class="progress-bar {% if investissement.payement_courant.pourcentage < 50 %}
+                                            bg-danger
+                                        {% elif investissement.payement_courant.pourcentage == 50 %}
+                                            bg-gradient-primary
+                                        {% elif investissement.payement_courant.pourcentage > 50 and investissement.payement_courant.pourcentage < 80 %}
+                                            bg-gradient-info
+                                        {% elif investissement.payement_courant.pourcentage > 80 %}
+                                            bg-success
+                                        {% endif %}" aria-valuenow="{{ investissement.payement_courant.pourcentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement.payement_courant.pourcentage }}%;">
+                                <span class="sr-only">{{ investissement.payement_courant.pourcentage }}</span>
+                            </div>
+
                         </div>
-
-                    </div>
 
                 {% endfor %}
 
@@ -92,11 +89,25 @@
                     </h4>
 
 
-                        <div class="progress mb-4"  data-toggle="tooltip" data-placement="top" title="{{ payement.pourcentage }}%">
-                            <div class="progress-bar bg-success" aria-valuenow="{{ payement.pourcentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ payement.pourcentage }}%;">
+                        <div class="progress mb-4"
+                             data-toggle="tooltip"
+                             data-placement="top"
+                             title="{% if payement.status == "RE" %}
+                                        Payement Effectué
+                                    {% else %}
+                                        Terminé: Payement en Cours...
+                                    {% endif %}">
+
+                            <div class="progress-bar bg-success"
+                                 aria-valuenow="{{ payement.pourcentage }}"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 style="width: {{ payement.pourcentage }}%;">
                                 <span class="sr-only">{{ payement.pourcentage }}</span>
                             </div>
+
                         </div>
+
                     {% empty %}
 
                         <p class="lead text-center text-danger">Oups!!! Aucun payement terminé pour cet investissement.</p>
