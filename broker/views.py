@@ -1,3 +1,5 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -5,13 +7,16 @@ from broker.forms import BrokerForm
 from broker.models import Broker
 
 
+@login_required
+@staff_member_required
 def index(request):
     context = {
         "brokers": Broker.objects.all()
     }
     return render(request, 'broker/index.html', context)
 
-
+@login_required
+@staff_member_required
 def ajouter(request):
     form = BrokerForm()
     context = {'form': form}
@@ -27,7 +32,8 @@ def ajouter(request):
 
     return render(request, 'broker/ajouter.html', context)
 
-
+@login_required
+@staff_member_required
 def modifier(request, pk):
     broker = Broker.objects.get(id=pk)
     form = BrokerForm(
@@ -54,7 +60,8 @@ def modifier(request, pk):
 
     return render(request, 'broker/modifier.html', context)
 
-
+@login_required
+@staff_member_required
 def supprimer(request, pk):
     broker = Broker.objects.get(id=pk)
 

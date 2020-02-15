@@ -1,17 +1,21 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from exercice.forms import ExerciceForm
 from exercice.models import Exercice
 
-
+@login_required
+@staff_member_required
 def index(request):
     context = {
         "exercices": Exercice.objects.all()
     }
     return render(request, 'exercice/index.html', context)
 
-
+@login_required
+@staff_member_required
 def ajouter(request):
     form = ExerciceForm()
     print(form.as_p())
@@ -32,7 +36,8 @@ def ajouter(request):
 
     return render(request, 'exercice/ajouter.html', context)
 
-
+@login_required
+@staff_member_required
 def modifier(request, pk):
     exercice = Exercice.objects.get(id=pk)
     form = ExerciceForm(
@@ -66,6 +71,8 @@ def modifier(request, pk):
 
     return render(request, 'exercice/profile.html', context)
 
+@login_required
+@staff_member_required
 def supprimer(request, pk):
     exercice = Exercice.objects.get(id=pk)
 

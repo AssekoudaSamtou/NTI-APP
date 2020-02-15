@@ -1,12 +1,15 @@
 from datetime import datetime
 
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from operation.forms import OperationForm
 from operation.models import Operation
 
-
+@login_required
+@staff_member_required
 def index(request):
     context = {
         "operations": Operation.objects.all()
@@ -14,6 +17,8 @@ def index(request):
     return render(request, 'operation/index.html', context)
 
 
+@login_required
+@staff_member_required
 def ajouter(request):
     form = OperationForm()
     context = {
@@ -30,6 +35,8 @@ def ajouter(request):
     return render(request, 'operation/ajouter.html', context)
 
 
+@login_required
+@staff_member_required
 def modifier(request, pk):
     operation = Operation.objects.get(id=pk)
     print(operation.date.strftime('%Y-%m-%d'))
@@ -64,6 +71,8 @@ def modifier(request, pk):
     return render(request, 'operation/modifier.html', context)
 
 
+@login_required
+@staff_member_required
 def supprimer(request, pk):
     operation = Operation.objects.get(id=pk)
 

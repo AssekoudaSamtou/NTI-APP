@@ -1,3 +1,5 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -5,14 +7,16 @@ from compte.forms import CompteForm
 from compte.models import Compte
 from tradeur.models import Tradeur
 
-
+@login_required
+@staff_member_required
 def index(request):
     context = {
         "comptes": Compte.objects.all()
     }
     return render(request, 'compte/index.html', context)
 
-
+@login_required
+@staff_member_required
 def ajouter(request):
     form = CompteForm()
     context = {
@@ -27,7 +31,8 @@ def ajouter(request):
 
     return render(request, 'compte/ajouter.html', context)
 
-
+@login_required
+@staff_member_required
 def modifier(request, pk):
     compte = Compte.objects.get(id=pk)
     form = CompteForm(
@@ -55,7 +60,8 @@ def modifier(request, pk):
 
     return render(request, 'compte/modifier.html', context)
 
-
+@login_required
+@staff_member_required
 def supprimer(request, pk):
     compte = Compte.objects.get(id=pk)
 

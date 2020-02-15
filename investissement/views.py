@@ -1,20 +1,22 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from investissement.forms import InvestissementForm
 from investissement.models import Investissement
-from payement.models import Payement
-
-from datetime import timedelta
 
 
+@login_required
+@staff_member_required
 def index(request):
     context = {
         "investissements": Investissement.objects.all()
     }
     return render(request, 'investissement/index.html', context)
 
-
+@login_required
+@staff_member_required
 def ajouter(request):
     form = InvestissementForm()
     context = {
@@ -33,6 +35,8 @@ def ajouter(request):
     return render(request, 'investissement/ajouter.html', context)
 
 
+@login_required
+@staff_member_required
 def modifier(request, pk):
     investissement = Investissement.objects.get(id=pk)
     form = InvestissementForm(
@@ -64,6 +68,8 @@ def modifier(request, pk):
     return render(request, 'investissement/modifier.html', context)
 
 
+@login_required
+@staff_member_required
 def supprimer(request, pk):
     investissement = Investissement.objects.get(id=pk)
 

@@ -1,17 +1,21 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from commerciaux.forms import CommercialForm
 from commerciaux.models import Commercial
 
-
+@login_required
+@staff_member_required
 def index(request):
     context = {
         "commerciaux": Commercial.objects.all()
     }
     return render(request, 'commerciaux/index.html', context)
 
-
+@login_required
+@staff_member_required
 def ajouter(request):
     form = CommercialForm()
     context = {'form': form}
@@ -30,7 +34,8 @@ def ajouter(request):
 
     return render(request, 'commerciaux/ajouter.html', context)
 
-
+@login_required
+@staff_member_required
 def modifier(request, pk):
     commercial = Commercial.objects.get(id=pk)
     form = CommercialForm(
@@ -63,7 +68,8 @@ def modifier(request, pk):
 
     return render(request, 'commerciaux/modifier.html', context)
 
-
+@login_required
+@staff_member_required
 def supprimer(request, pk):
     commercial = Commercial.objects.get(id=pk)
 

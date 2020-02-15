@@ -3,14 +3,11 @@ from datetime import date
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import User, Group
-from django.db.models import QuerySet
+from django.contrib.auth.models import Group
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
-
 from password_generator import PasswordGenerator
 
-from investissement.models import Investissement
 from investissement.utils import incrementer_date
 from investisseur.forms import InvestisseurForm
 from investisseur.models import Investisseur
@@ -143,7 +140,12 @@ def liste_investissements(request):
 
     return render(request, 'investisseur/espace/investissements/liste.html', context=context)
 
-
+@login_required
 def liste_filleuls(request):
+    try:
+        user = Investisseur.objects.get(id=request.user.id)
+    except Investisseur.DoesNotExist:
+        raise Http404("Investisseur Not Found")
+
     context = {}
     return render(request, 'investisseur/espace/filleuls/liste.html', context=context)
