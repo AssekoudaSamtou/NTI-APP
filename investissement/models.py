@@ -7,6 +7,8 @@ from investisseur.models import Investisseur
 from compte.models import Compte
 
 
+POURCENTAGE = 0.05
+
 class Investissement(models.Model):
 	investisseur = models.ForeignKey(Investisseur, related_name='investissements', on_delete=models.CASCADE)
 	montant = models.DecimalField(max_digits=10, decimal_places=2)
@@ -76,3 +78,6 @@ class Investissement(models.Model):
 				print(payement.date)
 				payement.status = "EC"
 				payement.save()
+
+	def bonus(self):
+		return float(self.montant) * POURCENTAGE
