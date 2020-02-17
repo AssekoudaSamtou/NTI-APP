@@ -147,5 +147,7 @@ def liste_filleuls(request):
     except Investisseur.DoesNotExist:
         raise Http404("Investisseur Not Found")
 
-    context = {}
+    context = {
+        'filleuls': Investisseur.objects.filter(parrain=user)
+    }
     return render(request, 'investisseur/espace/filleuls/liste.html', context=context)
