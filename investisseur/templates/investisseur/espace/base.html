@@ -37,7 +37,7 @@
                         <a class="btn btn-link nav-link" href="{% url 'filleuls' %}" role="button">
                             <i class="fas fa-users"></i>
                             <span class="font-weight-bold">Mes Filleuls</span>
-                            <span class="rounded-circle bg-danger px-1">{{ investisseur.fieuls|length }}</span>
+                            <span class="rounded-circle bg-danger px-1">{{ investisseur.fieuls.all|length }}</span>
                         </a>
                     </div>
                 </li>
