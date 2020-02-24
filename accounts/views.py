@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.models import User
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 
 from accounts.forms import UpdateInfosPersoForm, UpdateContactForm, UpdatePasswordForm
@@ -89,3 +89,16 @@ def change_pwd(request):
             return redirect('login')
     else:
         raise Http404("Not Found")
+
+
+def change_avatar(request):
+    try:
+        investisseur = Investisseur.objects.get(id=request.user.id)
+    except Investisseur.DoesNotExist:
+        raise Http404("Investisseur Not Found")
+
+    investisseur
+    print(request.FILES)
+    print("##########")
+    print(request.POST)
+    return JsonResponse({})

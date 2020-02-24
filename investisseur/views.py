@@ -13,8 +13,8 @@ from investisseur.forms import InvestisseurForm
 from investisseur.models import Investisseur
 from payement.models import Payement
 
-pwo = PasswordGenerator()
 
+pwo = PasswordGenerator()
 
 @login_required
 @staff_member_required
@@ -111,13 +111,14 @@ def espace(request):
 
     investissements = user.investissements.all()
     payements = Payement.objects.filter(investissement__investisseur=user)
+    # print(payements)
     context = {
-        'investisseur': user,
+        # 'investisseur': user,
         'investissements_en_cours': [i for i in investissements if not i.is_finish()],
         'somme_investissements': sum(i.montant for i in investissements if not i.is_finish()),
         'investissements_termine': [i for i in investissements if i.is_finish()],
         'nb_virements': len([p for p in payements if p.status == "VR"]),  # Virement effetuer
-        'gains': sum([p.montant for p in payements if p.status == "NP"])
+        'gains': sum([p.montant for p in payements if p.status == "EC"])
     }
 
     return render(request, 'investisseur/espace/index.html', context)
@@ -132,6 +133,7 @@ def liste_investissements(request):
 
     investissements = user.investissements.all()
     encours = [i for i in investissements if incrementer_date(i.date_decompte, 30 * i.duree) > date.today()]
+    # print(encours, "###")
 
     context = {
         'encours': encours,

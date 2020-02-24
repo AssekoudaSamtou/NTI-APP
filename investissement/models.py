@@ -61,7 +61,7 @@ class Investissement(models.Model):
 	def payement_courant(self):
 		self.refresh_status_payements()
 
-		payement = self.payements.filter(status=None).order_by('date').first()
+		payement = self.payements.filter(status="NP").order_by('date').first()
 		return payement
 
 	def payements_termines(self):
@@ -75,8 +75,10 @@ class Investissement(models.Model):
 
 		for payement in payements:
 			if payement.date < date.today():
-				print(payement.date)
 				payement.status = "EC"
+				payement.save()
+			elif payement.debut_payement() < date.today():
+				payement.status = "NP"
 				payement.save()
 
 	def bonus(self):

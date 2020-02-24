@@ -9,6 +9,7 @@ class Investisseur(User):
 	sexe = models.CharField(max_length=1)
 	parrain = models.ForeignKey('Investisseur', related_name='fieuls', on_delete=models.CASCADE, null=True, blank=True)
 	init_password = models.CharField(max_length=50)
+	# avatar = models.ImageField(upload_to="photos/", null=True, blank=True)
 
 	def __repr__(self):
 		return f"{self.first_name} {self.last_name}"

@@ -11,9 +11,13 @@
                 <div class="col-lg-4">
                     <div class="card mb-3">
                         <div class="card-body text-center shadow">
-                            <img class="rounded-circle mb-3 mt-4" src="{% static 'img/avatars/avatar6.png' %}" width="160" height="160"  alt=""/>
+                            <img id="img_avatar" class="rounded-circle mb-3 mt-4" src="{% static 'img/avatars/avatar6.png' %}" width="160" height="160"  alt=""/>
                             <div class="mb-3">
-                                <button class="btn btn-primary btn-sm" type="button">Changer Photo</button>
+                                <form id="avatar_form" method="post" class="d-none" action="{% url 'change_avatar' %}">
+                                    {% csrf_token %}
+                                    <input name="img" id="id_avatar" class="d-none" type="file" accept="image/*">
+                                </form>
+                                <button id="btn_avatar" class="btn btn-primary btn-sm" type="button">Changer Photo</button>
                             </div>
                         </div>
                     </div>
