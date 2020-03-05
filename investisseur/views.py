@@ -132,8 +132,8 @@ def liste_investissements(request):
         raise Http404("Investisseur Not Found")
 
     investissements = user.investissements.all()
-    encours = [i for i in investissements if incrementer_date(i.date_decompte, 30 * i.duree) > date.today()]
-    # print(encours, "###")
+    encours = [i for i in investissements if not i.is_finish()]
+    print(investissements, "###")
 
     context = {
         'encours': encours,
