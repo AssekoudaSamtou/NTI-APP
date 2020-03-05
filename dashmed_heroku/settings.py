@@ -144,7 +144,7 @@ django_heroku.settings(locals())
 
 LOGIN_URL = 'accounts/login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'accounts/login'
+LOGOUT_REDIRECT_URL = 'home'
 
 
 AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend',]

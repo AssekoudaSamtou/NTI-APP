@@ -56,6 +56,7 @@ class Investissement(models.Model):
 
 		today = date.today()
 		invest_end = incrementer_date(self.date_decompte, 30 * self.duree)
+		print(today > invest_end)
 		return today > invest_end
 
 	def payement_courant(self):
@@ -71,7 +72,7 @@ class Investissement(models.Model):
 		return payements
 
 	def refresh_status_payements(self):
-		payements = self.payements.filter(status=None)
+		payements = self.payements.filter(status__in=(None, "NP"))
 
 		for payement in payements:
 			if payement.date < date.today():
