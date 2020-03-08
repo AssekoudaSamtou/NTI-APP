@@ -14,12 +14,17 @@
       <w>decompte</w>
       <w>duree</w>
       <w>début</w>
+      <w>déja</w>
       <w>ecoule</w>
+      <w>effectifs</w>
+      <w>effectuer</w>
       <w>effectué</w>
+      <w>effectués</w>
       <w>elif</w>
       <w>encours</w>
       <w>espace</w>
       <w>exercice</w>
+      <w>exercices</w>
       <w>fait</w>
       <w>fcfa</w>
       <w>filleuls</w>
@@ -34,6 +39,7 @@
       <w>liste</w>
       <w>montant</w>
       <w>montants</w>
+      <w>nombre</w>
       <w>numero</w>
       <w>objectif</w>
       <w>oups</w>
@@ -46,7 +52,9 @@
       <w>poucentage</w>
       <w>pourcentage</w>
       <w>prenom</w>
+      <w>projet</w>
       <w>prénoms</w>
+      <w>reçus</w>
       <w>samtou</w>
       <w>sauvegarder</w>
       <w>sendgrid</w>
@@ -56,6 +64,7 @@
       <w>termines</w>
       <w>terminé</w>
       <w>tradeur</w>
+      <w>tradeurs</w>
       <w>vous</w>
     </words>
   </dictionary>

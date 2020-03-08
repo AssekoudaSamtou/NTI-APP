@@ -15,19 +15,35 @@
         <div class="col">
             <div class="form-group">
                 <label for="id_prenom">
-                    <strong>Prénom</strong>
+                    <strong>Date Début</strong>
                 </label>
-{#                <input class="form-control" type="text" placeholder="Doe" name="last_name">#}
-                {{ form.prenom }}
+                {{ form.date_debut }}
             </div>
         </div>
-        <div class="col d-none">
+        <div class="col">
             <div class="form-group">
                 <label for="id_avatar">
-                    <strong>Avatar</strong>
+                    <strong>Durée</strong>
                 </label>
-{#                {{ form.avatar }}#}
-                <input type="file" name="avatar" class="form-control" accept="image/*" id="id_avatar">
+                {{ form.duree }}
+                </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_telephone">
+                    <strong>Balance d'Initialisation</strong>
+                </label>
+                {{ form.balance_initialisation }}
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="id_email">
+                    <strong>Objectif </strong>
+                </label>
+                {{ form.objectif }}
             </div>
         </div>
     </div>
@@ -35,39 +51,26 @@
         <div class="col">
             <div class="form-group">
                 <label for="id_telephone">
-                    <strong>Téléphone</strong>
+                    <strong>Les comptes associés</strong>
                 </label>
-                {{ form.telephone }}
-{#                <input class="form-control" type="text" placeholder="user.name" name="username">#}
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="id_email">
-                    <strong>Adresse Email</strong>
-                </label>
-                {{ form.email }}
-{#                <input class="form-control" type="email" placeholder="user@example.com" name="email">#}
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="id_sexe">
-                    <strong>Sexe</strong>
-                </label>
-                {{ form.sexe }}
-{#                <input class="form-control" type="email" placeholder="user@example.com" name="email">#}
+{#                {{ form.comptes }}#}
+                <div>
+                    <select name="comptes" id="id_comptes" multiple class="form-control d-none">
+                        {% for compte in comptes %}
+
+                            {% if compte in exercice.comptes.all %}
+                                <option value="{{ compte.id }}" selected>{{ compte.num_compte }}</option>
+                            {% else %}
+                                <option value="{{ compte.id }}">{{ compte.num_compte }}</option>
+                            {% endif %}
+
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </div>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-save"></i>&nbsp;Save</button>
-        <button class="btn btn-danger btn-sm" type="button"
-                value="{% url 'supprimer_tradeur' pk=tradeur.id %}"
-                onclick="supprimerTradeur(this.value);">
-
-            <i class="fas fa-trash" ></i>&nbsp;Delete
-
-        </button>
+        <button class="btn btn-primary btn-sm" type="submit">Sauvegarder</button>
     </div>
 </form>
