@@ -17,17 +17,20 @@
 
                 <li role="presentation" class="nav-item">
                     <div>
-                        <a class="btn btn-link nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button">
+                        <a class="btn btn-link nav-link" href="{% url 'investissements_investisseur' %}" role="button">
                             <i class="fas fa-cog"></i>
                             <span class="font-weight-bold">Mes Investissements</span>
                         </a>
-                        <div class="collapse" id="collapse-1">
-                            <div class="bg-white border rounded py-2 collapse-inner">
-{#                                <h6 class="collapse-header">CUSTOM COMPONENTS:</h6>#}
-                                <a class="collapse-item" href="{% url 'investissements_investisseur' %}#encours">En cours</a>
-                                <a class="collapse-item" href="{% url 'investissements_investisseur' %}#termines">Terminés</a>
-                            </div>
-                        </div>
+                    </div>
+                </li>
+                <hr class="sidebar-divider" />
+
+                <li role="presentation" class="nav-item">
+                    <div>
+                        <a class="btn btn-link nav-link" href="{% url 'payements_investisseur' %}" role="button">
+                            <i class="fas fa-users"></i>
+                            <span class="font-weight-bold">Mes Payements</span>
+                        </a>
                     </div>
                 </li>
                 <hr class="sidebar-divider" />

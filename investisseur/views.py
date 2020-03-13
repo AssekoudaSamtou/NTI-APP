@@ -132,11 +132,8 @@ def liste_investissements(request):
         raise Http404("Investisseur Not Found")
 
     investissements = user.investissements.all()
-    encours = [i for i in investissements if not i.is_finish()]
-    print(investissements, "###")
 
     context = {
-        'encours': encours,
         'investissements': investissements,
     }
 
@@ -153,3 +150,21 @@ def liste_filleuls(request):
         'filleuls': Investisseur.objects.filter(parrain=user)
     }
     return render(request, 'investisseur/espace/filleuls/liste.html', context=context)
+
+
+def liste_payements(request):
+    try:
+        user = Investisseur.objects.get(id=request.user.id)
+    except Investisseur.DoesNotExist:
+        raise Http404("Investisseur Not Found")
+
+    investissements = user.investissements.all()
+    encours = [i for i in investissements if not i.is_finish()]
+    print(investissements, "###")
+
+    context = {
+        'encours': encours,
+        'investissements': investissements,
+    }
+
+    return render(request, 'investisseur/espace/payements/liste.html', context=context)

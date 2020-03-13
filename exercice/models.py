@@ -12,7 +12,6 @@ class Exercice(models.Model):
         'compte.Compte',
         through='ExerciceCompte',
         through_fields=('exercice', 'compte'),
-        null=True
     )
 
     def __repr__(self):
