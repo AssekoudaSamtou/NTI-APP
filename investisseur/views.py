@@ -4,6 +4,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
+from django.db import transaction
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from password_generator import PasswordGenerator
@@ -13,8 +14,8 @@ from investisseur.forms import InvestisseurForm
 from investisseur.models import Investisseur
 from payement.models import Payement
 
-
 pwo = PasswordGenerator()
+
 
 @login_required
 @staff_member_required
@@ -27,6 +28,7 @@ def index(request):
 
 @login_required
 @staff_member_required
+@transaction.atomic
 def ajouter(request):
     form = InvestisseurForm()
     context = {'form': form}
@@ -36,6 +38,7 @@ def ajouter(request):
         print(form.errors)
         print(request.POST['username'])
         print(form.is_valid())
+
         if form.is_valid():
             first_password = pwo.generate()
             print(first_password)
@@ -43,8 +46,12 @@ def ajouter(request):
             investisseur.password = make_password(first_password)
             investisseur.init_password = first_password
             investisseur.save()
-            investisseur_grp = Group.objects.get(name="investisseur")
-            investisseur_grp.user_set.add(investisseur)
+
+            try:
+                investisseur_grp = Group.objects.get(name="investisseur")
+                investisseur_grp.user_set.add(investisseur)
+            except Group.DoesNotExist:
+                create_end_user_groups()
 
             return redirect('investisseurs')
 
@@ -139,6 +146,7 @@ def liste_investissements(request):
 
     return render(request, 'investisseur/espace/investissements/liste.html', context=context)
 
+
 @login_required
 def liste_filleuls(request):
     try:
@@ -165,3 +173,14 @@ def liste_payements(request):
     }
 
     return render(request, 'investisseur/espace/payements/liste.html', context=context)
+
+
+def create_end_user_groups():
+    # with transaction.atomic():
+    grps = Group.objects.all()
+    for g in grps:
+        g.delete()
+
+    Group.objects.create("tradeur")
+    Group.objects.create("investisseur")
+    Group.objects.create("commercial")
