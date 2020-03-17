@@ -29,9 +29,13 @@ class Payement(models.Model):
         return self.date - timedelta(days=30)
 
     def pourcentage(self):
+        if date.today() >= self.date:
+            return 100
+        if date.today() <= self.debut_payement():
+            return 0
         temps_ecoule = timedelta(days=30) - (self.date - date.today())
         pourcentage = temps_ecoule.days * 100 / 30
-        return pourcentage
+        return int(pourcentage)
 
     def rang(self):
         rank = 1
@@ -41,3 +45,6 @@ class Payement(models.Model):
             if payements[i].id == self.id:
                 return i + 1
         return rank
+
+    def formed_img_name(self):
+        return f'img/icons8_calendar_{self.rang()}_48px.png'
