@@ -1,5 +1,3 @@
-from datetime import date
-
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -9,7 +7,6 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from password_generator import PasswordGenerator
 
-from investissement.utils import incrementer_date
 from investisseur.forms import InvestisseurForm
 from investisseur.models import Investisseur
 from payement.models import Payement
