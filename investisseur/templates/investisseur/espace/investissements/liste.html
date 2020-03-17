@@ -10,49 +10,87 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
-            <div class="col-xl-7 col-lg-8 col-md-9 col-sm-11">
-                <div class="card border-0">
-                    <div class="row justify-content-center">
-                        <h3 class="mb-4">Credit Card Checkout</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-7 border-line pb-3">
-                            <div class="d-flex justify-content-between">
-                                <p class="display-1 degree">150000</p>
-                                <label class="text-sm">Fcfa</label>
-                            </div>
-                            <div class="d-flex justify-content-between mb-4">
-                                <p><i class="fas fa-tint fa-lg text-info pr-2"></i>Nb mois</p>
-                                <p><i class="fas fa-leaf fa-lg grey-text pr-2"></i>type</p>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" style="  width: 25%;">25%</div>
-                            </div>
-                            <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
-                                <li class="pl-4">debut</li>
-                                <li class="pr-4">fin</li>
-                            </ul>
-                            <div class="form-group mb-0">
-                                <div class="custom-control custom-checkbox custom-control-inline"><input id="chk1" type="checkbox" name="chk" class="custom-control-input" checked /><label for="chk1" class="custom-control-label text-muted text-sm">
-                                save my card for future payment
-                                </label></div>
-                            </div>
+
+            {% for investissement in investissements %}
+                <div class="col-xl-7 col-lg-8 col-md-9 col-sm-11">
+                    <div class="card border-0">
+                        <div class="row justify-content-center">
+                            <h3 class="mb-4">Investissement No {{ investissement.rang }}</h3>
                         </div>
-                        <div class="col-sm-5 text-sm-center justify-content-center pt-4 pb-4">
-                            <small class="text-sm text-muted">Order number</small>
-                            <h5 class="mb-5">12345678</h5>
-                            <small class="text-sm text-muted">Payment amount</small>
-                            <div class="row px-3 justify-content-sm-center">
-                                <h2>
-                                    <span class="text-md font-weight-bold mr-2">$</span>
-                                    <span class="text-danger">59.49</span>
-                                </h2>
+                        <div class="row">
+                            <div class="col-sm-7 border-line pb-3">
+                                <div class="d-flex justify-content-around  mb-5">
+                                    <p class="display-4 degree investissement_money">{{ investissement.montant }}</p>
+                                    <label class="text-sm togo_currency">Fcfa</label>
+                                    <i class="fa fa-2x fa-arrow-right"></i>
+                                    <p class="display-4 degree investissement_money text-success">{{ investissement.retour_sur_investissement }}</p>
+                                    <label class="text-sm togo_currency">Fcfa</label>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <p title="durée de l'investissement">
+                                        <i class="fas fa-calendar-check fa-lg text-info pr-2"></i>{{ investissement.duree }} mois
+                                    </p>
+                                    <p title="type d'investissement">
+                                        <i class="fas fa-leaf fa-lg grey-text pr-2 text-warning"></i>
+                                        {% if investissement.type == "M" %}
+                                            Mensuel
+                                        {% elif investissement.type == "B" %}
+                                            Bloqué
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div class="progress mt-5">
+                                    <div class="progress-bar"
+                                         style="width: {{ investissement.pourcentage }}%;">
+                                        {{ investissement.pourcentage }}%
+                                    </div>
+                                </div>
+                                <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
+                                    <li class="">{{ investissement.date_decompte }}</li>
+                                    <li class="">{{ investissement.date_fin }}</li>
+                                </ul>
                             </div>
-                            <button type="submit" class="btn btn-red text-center mt-4">PAY</button>
+                            <div class="col-sm-5 text-sm-center justify-content-center pb-4">
+                                <small class="lead">Les payements</small>
+
+                                {% for payement in investissement.payements.all %}
+                                    <div class="d-flex justify-content-between">
+                                        <p>
+                                            <img width="30"
+                                                 height="30"
+                                                 src="{% static payement.formed_img_name %}">
+                                        </p>
+
+                                        {% if payement.pourcentage == 0 %}
+
+                                            <div class="progress progress-sm w-75 mt-3"
+                                                 data-toggle="tooltip"
+                                                 data-placement="top"
+                                                 title="en attente...">
+                                                <div class="progress-bar" style="  width: {{ payement.pourcentage }}%;"></div>
+                                            </div>
+
+                                        {% else %}
+
+                                            <div class="progress progress-sm w-75 mt-3"
+                                                 data-toggle="tooltip"
+                                                 data-placement="top"
+                                                 title="{{ payement.pourcentage }}%">
+                                                <div class="progress-bar bg-success" style="  width: {{ payement.pourcentage }}%;"></div>
+                                            </div>
+
+                                        {% endif %}
+
+
+                                    </div>
+                                {% endfor %}
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endfor %}
+
         </div>
     </div>
 {% endblock %}

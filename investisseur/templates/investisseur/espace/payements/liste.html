@@ -11,27 +11,36 @@
     <div class="container-fluid">
         <div id="encours" class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="text-primary font-weight-bold m-0">Mes Investissements en cours</h6>
+                <h6 class="text-primary font-weight-bold m-0">Mes Payements en cours</h6>
             </div>
             <div class="card-body">
 
-                {% for investissement in encours %}
+                {% for investissement in investissements %}
 
-                    <h4 class="small font-weight-bold">
-                        <span style="font-size: 20px;" class="font-italic">Investissment: <i class="fa fa-calendar fa-2x text-info" title=" date du début du du decompte des 30 jours"></i> {{ investissement.date_decompte }}</span><br><br>
-                        <div class="d-flex justify-content-between text-gray-500">
-                            <div>Du {{ investissement.payement_courant.debut_payement }}</div>
-                            <div>
-                                Payement No {{ investissement.payement_courant.rang }} :
-                                <span title="gain généré" class="text-dark">
-                                    {{ investissement.payement_courant.montant }}
-                                    <span>Fcfa</span>
-                                </span>
+                    {% if not investissement.is_finish %}
+
+                        <h4 class="small font-weight-bold">
+
+                            <span style="font-size: 20px;" class="font-italic">
+                                Investissment:
+                                <i class="fa fa-calendar fa-2x text-info"
+                                   title=" date début du décompte des 30 jours">
+                                </i>
+                                {{ investissement.date_decompte }}
+                            </span><br><br>
+
+                            <div class="d-flex justify-content-between text-gray-500">
+                                <div>Du {{ investissement.payement_courant.debut_payement }}</div>
+                                <div>
+                                    Payement No {{ investissement.payement_courant.rang }} :
+                                    <span title="gain généré" class="text-dark">
+                                        {{ investissement.payement_courant.montant }}
+                                        <span>Fcfa</span>
+                                    </span>
+                                </div>
+                                <div>Au {{ investissement.payement_courant.date }}</div>
                             </div>
-                            <div>Au {{ investissement.payement_courant.date }}</div>
-                        </div>
-                    </h4>
-
+                        </h4>
 
                         <div class="progress mb-4"
                              data-toggle="tooltip"
@@ -56,6 +65,9 @@
 
                         </div>
 
+                    {% endif %}
+
+
                 {% empty %}
 
                     <p class="lead text-center text-danger">Oups!!! Vous n'avez aucun investissement en cours.</p>
@@ -67,7 +79,7 @@
 
         <div id="termines" class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="text-primary font-weight-bold m-0">Mes Investissements terminés</h6>
+                <h6 class="text-primary font-weight-bold m-0">Mes Payements terminés</h6>
             </div>
             <div class="card-body">
 
