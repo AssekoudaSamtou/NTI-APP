@@ -149,3 +149,8 @@ LOGOUT_REDIRECT_URL = 'home'
 
 AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend',]
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# SESSION
+# SESSION_COOKIE_AGE = 10
+# CSRF_COOKIE_AGE = 10
+# SESSION_EXPIRE_AT_BROWSER_CLOSE=True
