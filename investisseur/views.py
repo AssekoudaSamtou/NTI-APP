@@ -181,6 +181,6 @@ def create_end_user_groups():
     for g in grps:
         g.delete()
 
-    Group.objects.create("tradeur")
-    Group.objects.create("investisseur")
-    Group.objects.create("commercial")
+    Group(name="tradeur").save()
+    Group(name="investisseur").save()
+    Group(name="commercial").save()
