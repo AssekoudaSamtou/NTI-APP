@@ -77,7 +77,7 @@ def change_pwd(request):
     except Investisseur.DoesNotExist:
         raise Http404("Investisseur Not Found")
 
-    if request.method == "POST":
+    if  not request.is_ajax() and request.method == "POST":
         old_pwd = request.POST.get('old_pass')
         new_pwd = request.POST.get('new_pass')
         r_new_pwd = request.POST.get('r_new_pass')
