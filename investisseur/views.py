@@ -159,11 +159,8 @@ def liste_payements(request):
         raise Http404("Investisseur Not Found")
 
     investissements = user.investissements.all()
-    encours = [i for i in investissements if not i.is_finish()]
-    print(investissements, "###")
 
     context = {
-        'encours': encours,
         'investissements': investissements,
     }
 

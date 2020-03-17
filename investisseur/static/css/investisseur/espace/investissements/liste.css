@@ -101,3 +101,13 @@ button:focus {
   }
 }
 
+.investissement_money{
+  font-size: 1.5rem;
+  color: #ef5350;
+  font-weight: bold
+}
+
+.togo_currency{
+  margin-top: 1rem;
+  font-family: 'Comic Sans MS',serif;
+}
