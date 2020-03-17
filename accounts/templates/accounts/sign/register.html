@@ -1,0 +1,10 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="alert alert-info">
+        Veillez contacter l'administrateur afin qu'il vous crée un compte
+    </div>
+
+    <div class="text-center"><a class="small" href="{% url 'login' %}">J'ai déja un compte</a></div>
+{% endblock %}

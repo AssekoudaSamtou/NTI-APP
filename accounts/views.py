@@ -32,7 +32,8 @@ def view_profile(request):
             }
         )
     }
-    return render(request, 'accounts/profile.html', args)
+    return render(request, 'accounts/sign/profile.html', args)
+
 
 @login_required
 def update_infos_perso(request):
@@ -41,7 +42,7 @@ def update_infos_perso(request):
     except Investisseur.DoesNotExist:
         raise Http404("Investisseur Not Found")
 
-    if request.method == "POST":
+    if not request.is_ajax() and request.method == "POST":
         form = UpdateInfosPersoForm(request.POST)
         form.instance = investisseur
         print(form.errors)
@@ -52,6 +53,7 @@ def update_infos_perso(request):
     else:
         raise Http404("Not Found")
 
+
 @login_required
 def update_contacts(request):
     try:
@@ -59,7 +61,7 @@ def update_contacts(request):
     except Investisseur.DoesNotExist:
         raise Http404("Investisseur Not Found")
 
-    if request.method == "POST":
+    if not request.is_ajax() and request.method == "POST":
         form = UpdateContactForm(request.POST)
         form.instance = investisseur
         print(form.errors)
@@ -70,6 +72,7 @@ def update_contacts(request):
     else:
         raise Http404("Not Found")
 
+
 @login_required
 def change_pwd(request):
     try:
@@ -77,7 +80,7 @@ def change_pwd(request):
     except Investisseur.DoesNotExist:
         raise Http404("Investisseur Not Found")
 
-    if  not request.is_ajax() and request.method == "POST":
+    if not request.is_ajax() and request.method == "POST":
         old_pwd = request.POST.get('old_pass')
         new_pwd = request.POST.get('new_pass')
         r_new_pwd = request.POST.get('r_new_pass')
@@ -91,14 +94,18 @@ def change_pwd(request):
         raise Http404("Not Found")
 
 
+@login_required
 def change_avatar(request):
     try:
         investisseur = Investisseur.objects.get(id=request.user.id)
     except Investisseur.DoesNotExist:
         raise Http404("Investisseur Not Found")
 
-    investisseur
     print(request.FILES)
     print("##########")
     print(request.POST)
     return JsonResponse({})
+
+
+def register(request):
+    return render(request, 'accounts/sign/register.html', {})
