@@ -3,6 +3,10 @@
 import os
 import sys
 
+from apscheduler.schedulers.background import BackgroundScheduler
+
+from payement.payements_state_updater import refresh_status_job
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dashmed_heroku.settings')
@@ -18,4 +22,8 @@ def main():
 
 
 if __name__ == '__main__':
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(refresh_status_job, 'cron', day_of_week='*', hour=0, minute=1)
+    scheduler.start()
     main()
+    scheduler.shutdown(wait=False)

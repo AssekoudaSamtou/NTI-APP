@@ -115,7 +115,7 @@ def espace(request):
 
     investissements = user.investissements.all()
     payements = Payement.objects.filter(investissement__investisseur=user)
-    # print(payements)
+
     context = {
         # 'investisseur': user,
         'investissements_en_cours': [i for i in investissements if not i.is_finish()],
@@ -173,7 +173,6 @@ def liste_payements(request):
 
 
 def create_end_user_groups():
-    # with transaction.atomic():
     grps = Group.objects.all()
     for g in grps:
         g.delete()
