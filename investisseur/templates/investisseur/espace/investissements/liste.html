@@ -30,8 +30,8 @@
                                     <p title="durée de l'investissement">
                                         <i class="fas fa-calendar-check fa-lg text-info pr-2"></i>{{ investissement.duree }} mois
                                     </p>
-                                    <p title="type d'investissement">
-                                        <i class="fas fa-leaf fa-lg grey-text pr-2 text-warning"></i>
+                                    <p title="type de payement">
+                                        <img src="{% static 'img/icons8_tag_window_40px.png' %}" width="35" height="35">
                                         {% if investissement.type == "M" %}
                                             Mensuel
                                         {% elif investissement.type == "B" %}
