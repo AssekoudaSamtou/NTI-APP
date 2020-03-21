@@ -48,7 +48,7 @@
                                     <tr onclick="window.location = '{% url "modifier_compte" pk=compte.id %}';" style="cursor: pointer;">
                                         <td class="">{{ compte.num_compte }}</td>
                                         <td class="">{{ compte.broker }}</td>
-                                        <td class="">{{ compte.tradeur }}</td>
+                                        <td class="">{{ compte.tradeur.first_name }}</td>
                                         <td class="">{{ compte.montant_investi }}</td>
                                         <td class="">{{ compte.date_creation }}</td>
                                     </tr>

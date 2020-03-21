@@ -9,122 +9,88 @@
 
 {% block content %}
     <div class="container-fluid">
-        <div id="encours" class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="text-primary font-weight-bold m-0">Mes Investissements en cours</h6>
-            </div>
-            <div class="card-body">
+        <div class="row d-flex justify-content-center">
 
-                {% for investissement in encours %}
-
-                    <h4 class="small font-weight-bold">
-                        <span style="font-size: 20px;" class="font-italic">Investissment: <i class="fa fa-calendar fa-2x text-info" title=" date du début du du decompte des 30 jours"></i> {{ investissement.date_decompte }}</span><br><br>
-                        <div class="d-flex justify-content-between text-gray-500">
-                            <div>Du {{ investissement.payement_courant.debut_payement }}</div>
-                            <div>
-                                Payement No {{ investissement.payement_courant.rang }} :
-                                <span title="gain généré" class="text-dark">
-                                    {{ investissement.payement_courant.montant }}
-                                    <span>Fcfa</span>
-                                </span>
-                            </div>
-                            <div>Au {{ investissement.payement_courant.date }}</div>
+            {% for investissement in investissements %}
+                <div class="col-xl-7 col-lg-8 col-md-9 col-sm-11">
+                    <div class="card border-0">
+                        <div class="row justify-content-center">
+                            <h3 class="mb-4">Investissement No {{ investissement.rang }}</h3>
                         </div>
-                    </h4>
-
-
-                        <div class="progress mb-4"
-                             data-toggle="tooltip"
-                             data-placement="top"
-                             title="{% if investissement.payement_courant.pourcentage < 100 %}
-                                        {{ investissement.payement_courant.pourcentage }}%
-                                    {% else %}
-                                        Terminé: Payement en Cours...
-                                    {% endif %}">
-
-                            <div class="progress-bar {% if investissement.payement_courant.pourcentage < 50 %}
-                                            bg-danger
-                                        {% elif investissement.payement_courant.pourcentage == 50 %}
-                                            bg-gradient-primary
-                                        {% elif investissement.payement_courant.pourcentage > 50 and investissement.payement_courant.pourcentage < 80 %}
-                                            bg-gradient-info
-                                        {% elif investissement.payement_courant.pourcentage > 80 %}
-                                            bg-success
-                                        {% endif %}" aria-valuenow="{{ investissement.payement_courant.pourcentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ investissement.payement_courant.pourcentage }}%;">
-                                <span class="sr-only">{{ investissement.payement_courant.pourcentage }}</span>
+                        <div class="row">
+                            <div class="col-sm-7 border-line pb-3">
+                                <div class="d-flex justify-content-around  mb-5">
+                                    <p class="display-4 degree investissement_money">{{ investissement.montant }}</p>
+                                    <label class="text-sm togo_currency">Fcfa</label>
+                                    <i class="fa fa-2x fa-arrow-right"></i>
+                                    <p class="display-4 degree investissement_money text-success">{{ investissement.retour_sur_investissement }}</p>
+                                    <label class="text-sm togo_currency">Fcfa</label>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <p title="durée de l'investissement">
+                                        <i class="fas fa-calendar-check fa-lg text-info pr-2"></i>{{ investissement.duree }} mois
+                                    </p>
+                                    <p title="type de payement">
+                                        <img src="{% static 'img/icons8_tag_window_40px.png' %}" width="35" height="35">
+                                        {% if investissement.type == "M" %}
+                                            Mensuel
+                                        {% elif investissement.type == "B" %}
+                                            Bloqué
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div class="progress mt-5">
+                                    <div class="progress-bar"
+                                         style="width: {{ investissement.pourcentage }}%;">
+                                        {{ investissement.pourcentage }}%
+                                    </div>
+                                </div>
+                                <ul class="list-unstyled d-flex justify-content-between font-small text-muted mb-4">
+                                    <li class="">{{ investissement.date_decompte }}</li>
+                                    <li class="">{{ investissement.date_fin }}</li>
+                                </ul>
                             </div>
+                            <div class="col-sm-5 text-sm-center justify-content-center pb-4">
+                                <small class="lead">Les payements</small>
 
-                        </div>
+                                {% for payement in investissement.payements.all %}
+                                    <div class="d-flex justify-content-between">
+                                        <p>
+                                            <img width="30"
+                                                 height="30"
+                                                 src="{% static payement.formed_img_name %}">
+                                        </p>
 
-                {% endfor %}
+                                        {% if payement.pourcentage == 0 %}
 
-            </div>
-        </div>
+                                            <div class="progress progress-sm w-75 mt-3"
+                                                 data-toggle="tooltip"
+                                                 data-placement="top"
+                                                 title="en attente...">
+                                                <div class="progress-bar" style="  width: {{ payement.pourcentage }}%;"></div>
+                                            </div>
 
-        <div id="termines" class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="text-primary font-weight-bold m-0">Mes Investissements terminés</h6>
-            </div>
-            <div class="card-body">
+                                        {% else %}
 
-                {% for investissement in investissements %}
+                                            <div class="progress progress-sm w-75 mt-3"
+                                                 data-toggle="tooltip"
+                                                 data-placement="top"
+                                                 title="{{ payement.pourcentage }}%">
+                                                <div class="progress-bar bg-success" style="  width: {{ payement.pourcentage }}%;"></div>
+                                            </div>
 
-                    <h4 class="small font-weight-bold">
-                        <span style="font-size: 20px;" class="font-italic">
-                            Investissment: <i class="fa fa-calendar fa-2x text-info" title=" date du début du du decompte des 30 jours"></i> {{ investissement.date_decompte }}
-                        </span><br><br>
+                                        {% endif %}
 
-                    {% for payement in investissement.payements_termines %}
-                        <div class="d-flex justify-content-between ">
-                            <div>Du {{ payement.debut_payement }}</div>
-                            <div>
-                                Payement No {{ payement.rang }} :
-                                <span title="gain généré" class="text-dark">
-                                    {{ payement.montant }}
-                                    <span>Fcfa</span>
-                                </span>
+
+                                    </div>
+                                {% endfor %}
+
                             </div>
-                            <div>Au {{ payement.date }}</div>
                         </div>
-                    </h4>
+                    </div>
+                </div>
+            {% endfor %}
 
-
-                        <div class="progress mb-4"
-                             data-toggle="tooltip"
-                             data-placement="top"
-                             title="{% if payement.status == "RE" %}
-                                        Payement Effectué
-                                    {% else %}
-                                        Terminé: Payement en Cours...
-                                    {% endif %}">
-
-                            <div class="progress-bar bg-success"
-                                 aria-valuenow="{{ payement.pourcentage }}"
-                                 aria-valuemin="0"
-                                 aria-valuemax="100"
-                                 style="width: {{ payement.pourcentage }}%;">
-                                <span class="sr-only">{{ payement.pourcentage }}</span>
-                            </div>
-
-                        </div>
-
-                    {% empty %}
-
-                        <p class="lead text-center text-danger">Oups!!! Aucun payement terminé pour cet investissement.</p>
-
-                    {% endfor %}
-
-                {% empty %}
-
-                    <p class="lead text-center text-danger">Oups!!! Vous n'avez fait aucun investissement.</p>
-
-                {% endfor %}
-
-{#                <h4 class="small font-weight-bold">Payout Details<span class="float-right">80%</span></h4>#}
-{#                <div class="progress mb-4">#}
-{#                    <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"><span class="sr-only">80%</span></div>#}
-{#                </div>#}
-            </div>
         </div>
     </div>
 {% endblock %}

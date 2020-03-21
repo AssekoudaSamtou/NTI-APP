@@ -11,15 +11,19 @@
                 <div class="col-lg-4">
                     <div class="card mb-3">
                         <div class="card-body text-center shadow">
-                            <img class="rounded-circle mb-3 mt-4" src="{% static 'img/avatars/avatar6.png' %}" width="160" height="160"  alt=""/>
+                            <img id="img_avatar" class="rounded-circle mb-3 mt-4" src="{% static 'img/avatars/avatar6.png' %}" width="160" height="160" alt=""/>
                             <div class="mb-3">
-                                <button class="btn btn-primary btn-sm" type="button">Changer Photo</button>
+                                <form id="avatar_form" method="post" class="d-none" action="{% url 'change_avatar' %}">
+                                    {% csrf_token %}
+                                    <input name="img" id="id_avatar" class="d-none" type="file" accept="image/*">
+                                </form>
+                                <button id="btn_avatar" class="btn btn-primary btn-sm" type="button">Changer Photo</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="row mb-3 ">
+                    <div class="row mb-3 d-none">
                         <div class="col-lg-6 mb-5">
                             <div class="card text-white bg-primary shadow">
                                 <div class="card-body">
@@ -164,11 +168,11 @@
                                 <div class="d-flex flex-column font-weight-bolder">
                                     <div id="hidden_password" class="p-4 px-5">********</div>
                                 </div>
-                                <div class="d-flex flex-column font-weight-bolder">
-                                    <div class="p-4 px-5">
-                                        <i id="toggle-possword-icon" class="fas fa-eye text-success" onclick="showPassword()" style="cursor: pointer"></i>
-                                    </div>
-                                </div>
+{#                                <div class="d-flex flex-column font-weight-bolder">#}
+{#                                    <div class="p-4 px-5">#}
+{#                                        <i id="toggle-possword-icon" class="fas fa-eye text-success" onclick="showPassword()" style="cursor: pointer"></i>#}
+{#                                    </div>#}
+{#                                </div>#}
                             </div>
                         </div>
                     </div>
@@ -177,7 +181,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- infoPersoModal -->
     <div class="modal fade" id="infoPersoModal" tabindex="-1" role="dialog" aria-labelledby="infoPersoModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -234,6 +238,7 @@
         </div>
     </div>
 
+    <!-- passwordModal -->
     <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -291,6 +296,7 @@
         </div>
     </div>
 
+    <!-- contactModal -->
     <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

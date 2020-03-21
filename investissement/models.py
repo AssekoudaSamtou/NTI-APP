@@ -1,83 +1,102 @@
-from django.db import models
+from datetime import date
 
-from datetime import date, datetime
+from django.db import models, transaction
 
+from compte.models import Compte
 from investissement.utils import incrementer_date
 from investisseur.models import Investisseur
-from compte.models import Compte
 
+POURCENTAGE_BONUS = .05
+POURCENTAGE_MENSUEL = .4
+MONTH_LENGTH = 30
+TYPE_CHOICES = [
+    ('B', 'Bloqué'),
+    ('M', 'Mensuel')
+]
 
-POURCENTAGE = 0.05
 
 class Investissement(models.Model):
-	investisseur = models.ForeignKey(Investisseur, related_name='investissements', on_delete=models.CASCADE)
-	montant = models.DecimalField(max_digits=10, decimal_places=2)
-	date_investissement = models.DateField(default=date.today)
-	date_decompte = models.DateField(default=date.today)
-	duree = models.PositiveSmallIntegerField(default=1)
+    investisseur = models.ForeignKey(Investisseur, related_name='investissements', on_delete=models.CASCADE)
+    montant = models.DecimalField(max_digits=10, decimal_places=2)
+    date_investissement = models.DateField(default=date.today)
+    date_decompte = models.DateField(default=date.today)
+    duree = models.PositiveSmallIntegerField(default=1)
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES, null=True)
 
-	def __str__(self):
-		self.refresh_status_payements()
+    class Meta:
+        ordering = ['date_decompte']
 
-		return f"investissement n° {self.id}"
+    def __str__(self):
+        return f"investissement n° {self.id}"
 
-	def supprimer_payements(self):
-		from payement.models import Payement
-		self.refresh_status_payements()
+    def supprimer_payements(self):
+        from payement.models import Payement
 
-		payements = Payement.objects.filter(investissement=self)
-		for payement in payements:
-			payement.delete()
+        payements = Payement.objects.filter(investissement=self)
+        for payement in payements:
+            payement.delete()
 
-	def generer_payements(self):
-		from payement.models import Payement
-		self.refresh_status_payements()
+    def generer_payements(self):
+        from payement.models import Payement
 
-		base_date = self.date_decompte
-		for i in range(self.duree):
+        with transaction.atomic():
+            base_date = self.date_decompte
+            for i in range(self.duree):
 
-			if i + 1 == self.duree:
-				montant_payement = float(self.montant) * 1.4
-			else:
-				montant_payement = float(self.montant) * 0.4
+                if i + 1 == self.duree:
+                    montant_payement = float(self.montant) * 1.4
+                else:
+                    montant_payement = float(self.montant) * 0.4
 
-			base_date = incrementer_date(base_date, 30)
-			payement = Payement(
-				investissement=self,
-				date=base_date,
-				montant=montant_payement
-			)
+                base_date = incrementer_date(base_date, 30)
+                payement = Payement(
+                    investissement=self,
+                    date=base_date,
+                    montant=montant_payement
+                )
 
-			payement.investissement = self
-			payement.save()
+                payement.investissement = self
+                payement.save()
 
-	def is_finish(self):
-		self.refresh_status_payements()
+    def is_finish(self):
+        today = date.today()
+        invest_end = incrementer_date(self.date_decompte, 30 * self.duree)
 
-		today = date.today()
-		invest_end = incrementer_date(self.date_decompte, 30 * self.duree)
-		return today > invest_end
+        return today > invest_end
 
-	def payement_courant(self):
-		self.refresh_status_payements()
+    def payement_courant(self):
+        payement = self.payements.filter(status="NP").order_by('date').first()
+        return payement
 
-		payement = self.payements.filter(status=None).order_by('date').first()
-		return payement
+    def payements_termines(self):
+        payements = self.payements.filter(status__in=("VR", "RE", "EC")).order_by('date')
+        return payements
 
-	def payements_termines(self):
-		self.refresh_status_payements()
+    def bonus(self):
+        return float(self.montant) * POURCENTAGE_BONUS
 
-		payements = self.payements.filter(status__in=("VR", "RE", "EC")).order_by('date')
-		return payements
+    def pourcentage_rsi(self):
+        return self.retour_sur_investissement() * 100 / float(self.montant)
 
-	def refresh_status_payements(self):
-		payements = self.payements.filter(status=None)
+    def pourcentage(self):
+        aujourdhui = date.today()
 
-		for payement in payements:
-			if payement.date < date.today():
-				print(payement.date)
-				payement.status = "EC"
-				payement.save()
+        if aujourdhui >= self.date_fin():
+            return 100
 
-	def bonus(self):
-		return float(self.montant) * POURCENTAGE
+        return int((aujourdhui - self.date_decompte).days * 100 / float(MONTH_LENGTH * self.duree))
+
+    def retour_sur_investissement(self):
+        return float(self.montant) * (1 + (POURCENTAGE_MENSUEL * self.duree))
+
+    def date_fin(self):
+        return incrementer_date(self.date_decompte, MONTH_LENGTH * self.duree)
+
+    def rang(self):
+        rank = 1
+        investissements = self.__class__.objects.filter(investisseur=self.investisseur)
+
+        for i in range(len(investissements)):
+            if investissements[i].id == self.id:
+                return i + 1
+        return rank

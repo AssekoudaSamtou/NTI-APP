@@ -58,19 +58,13 @@
 							</thead>
 							<tbody>
 
-                                {% for tradeur in tradeurs %}
-                                    <tr onclick="console.log('ok'); window.location = '{% url "profile_tradeur" pk=tradeur.id %}';" style="cursor: pointer;">
-                                        <td>
-                                            {% if tradeur.avatar %}
-                                                <img class="rounded-circle mr-2" width="30" height="30" src="{{tradeur.avatar.url}}"  alt="avatar"/>
-                                            {% else %}
-                                                <img class="rounded-circle mr-2" width="30" height="30" src="{% static 'img/avatars/avatar6.png' %}"  alt="avatar"/>
-                                            {% endif %}
-                                            {{ tradeur.nom }} {{ tradeur.prenom }}
-                                        </td>
-                                        <td>{{ tradeur.telephone }}</td>
-                                        <td><a href="mailto:{{ tradeur.email }}">{{ tradeur.email }}</a></td>
-                                        <td>{{ tradeur.sexe }}</td>
+                                {% for exercice in exercices %}
+                                    <tr onclick="window.location = '{% url "modifier_exercice" pk=exercice.id %}';" style="cursor: pointer;">
+                                        <td>{{ exercice.nom }}</td>
+                                        <td>{{ exercice.date_debut }}</td>
+                                        <td>{{ exercice.duree }}</td>
+                                        <td>{{ exercice.balance_initialisation }}</td>
+                                        <td>{{ exercice.objectif }}</td>
                                     </tr>
                                 {% endfor %}
 

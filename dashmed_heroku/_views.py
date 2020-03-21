@@ -32,3 +32,8 @@ def home(request):
             context['investisseur'] = Commercial.objects.get(id=request.user.id)
             return render(request, TEMPLATES['commerciaux'], context)
     raise Http404(request)
+
+
+def handler404(request, exception):
+    context = {}
+    return render(request, "error/404.html", context=context)

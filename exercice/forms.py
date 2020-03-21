@@ -1,10 +1,19 @@
 from django.forms import Form, TextInput, Select, FileInput, NumberInput, EmailInput
 from django import forms
 
+from compte.models import Compte
 from exercice.models import Exercice
 
 
 DUREE_CHOICES = [
+    ('5', '5 Mois'),
+    ('4', '4 Mois'),
+    ('3', '3 Mois'),
+    ('2', '2 Mois'),
+    ('1', '1 Mois'),
+]
+
+COMPTE_CHOICES = [
     ('5', '5 Mois'),
     ('4', '4 Mois'),
     ('3', '3 Mois'),
@@ -36,7 +45,7 @@ class ExerciceForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'required': False,
-                    'disabled': 'disabled',
+                    # 'disabled': 'disabled',
                 },
                 choices=DUREE_CHOICES
             ),
@@ -51,7 +60,15 @@ class ExerciceForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'required': False,
-                    'disabled': 'disabled',
+                    # 'disabled': 'disabled',
                 }
+            ),
+            'comptes': Select(
+                attrs={
+                    'class': 'form-control',
+                    'required': False,
+                    'multiple': True,
+                },
+                choices=()
             ),
         }

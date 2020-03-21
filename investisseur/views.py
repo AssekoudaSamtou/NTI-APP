@@ -1,14 +1,12 @@
-from datetime import date
-
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
+from django.db import transaction
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from password_generator import PasswordGenerator
 
-from investissement.utils import incrementer_date
 from investisseur.forms import InvestisseurForm
 from investisseur.models import Investisseur
 from payement.models import Payement
@@ -27,6 +25,7 @@ def index(request):
 
 @login_required
 @staff_member_required
+@transaction.atomic
 def ajouter(request):
     form = InvestisseurForm()
     context = {'form': form}
@@ -36,6 +35,7 @@ def ajouter(request):
         print(form.errors)
         print(request.POST['username'])
         print(form.is_valid())
+
         if form.is_valid():
             first_password = pwo.generate()
             print(first_password)
@@ -43,8 +43,12 @@ def ajouter(request):
             investisseur.password = make_password(first_password)
             investisseur.init_password = first_password
             investisseur.save()
-            investisseur_grp = Group.objects.get(name="investisseur")
-            investisseur_grp.user_set.add(investisseur)
+
+            try:
+                investisseur_grp = Group.objects.get(name="investisseur")
+                investisseur_grp.user_set.add(investisseur)
+            except Group.DoesNotExist:
+                create_end_user_groups()
 
             return redirect('investisseurs')
 
@@ -111,13 +115,14 @@ def espace(request):
 
     investissements = user.investissements.all()
     payements = Payement.objects.filter(investissement__investisseur=user)
+
     context = {
-        'investisseur': user,
+        # 'investisseur': user,
         'investissements_en_cours': [i for i in investissements if not i.is_finish()],
         'somme_investissements': sum(i.montant for i in investissements if not i.is_finish()),
         'investissements_termine': [i for i in investissements if i.is_finish()],
         'nb_virements': len([p for p in payements if p.status == "VR"]),  # Virement effetuer
-        'gains': sum([p.montant for p in payements if p.status == "NP"])
+        'gains': sum([p.montant for p in payements if p.status == "EC"])
     }
 
     return render(request, 'investisseur/espace/index.html', context)
@@ -131,14 +136,13 @@ def liste_investissements(request):
         raise Http404("Investisseur Not Found")
 
     investissements = user.investissements.all()
-    encours = [i for i in investissements if incrementer_date(i.date_decompte, 30 * i.duree) > date.today()]
 
     context = {
-        'encours': encours,
         'investissements': investissements,
     }
 
     return render(request, 'investisseur/espace/investissements/liste.html', context=context)
+
 
 @login_required
 def liste_filleuls(request):
@@ -151,3 +155,28 @@ def liste_filleuls(request):
         'filleuls': Investisseur.objects.filter(parrain=user)
     }
     return render(request, 'investisseur/espace/filleuls/liste.html', context=context)
+
+
+def liste_payements(request):
+    try:
+        user = Investisseur.objects.get(id=request.user.id)
+    except Investisseur.DoesNotExist:
+        raise Http404("Investisseur Not Found")
+
+    investissements = user.investissements.all()
+
+    context = {
+        'investissements': investissements,
+    }
+
+    return render(request, 'investisseur/espace/payements/liste.html', context=context)
+
+
+def create_end_user_groups():
+    grps = Group.objects.all()
+    for g in grps:
+        g.delete()
+
+    Group(name="tradeur").save()
+    Group(name="investisseur").save()
+    Group(name="commercial").save()

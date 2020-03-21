@@ -17,7 +17,6 @@
                 <label for="id_prenom">
                     <strong>Date Début</strong>
                 </label>
-{#                <input class="form-control" type="text" placeholder="Doe" name="last_name">#}
                 {{ form.date_debut }}
             </div>
         </div>
@@ -45,7 +44,23 @@
                     <strong>Objectif </strong>
                 </label>
                 {{ form.objectif }}
-{#                <input class="form-control" type="email" placeholder="user@example.com" name="email">#}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <div class="form-group">
+                <label for="id_telephone">
+                    <strong>Les comptes associés</strong>
+                </label>
+{#                {{ form.comptes }}#}
+                <div>
+                    <select name="comptes" id="id_comptes" multiple class="form-control d-none">
+                        {% for compte in comptes %}
+                            <option value="{{ compte.id }}">{{ compte.num_compte }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
         </div>
     </div>

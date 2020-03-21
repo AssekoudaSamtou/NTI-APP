@@ -6,6 +6,6 @@ from . import views
 urlpatterns = [
     path('', views.index, name="exercices"),
     path('ajouter/', views.ajouter, name="ajouter_exercice"),
-    path('profile/<int:pk>/', views.modifier, name="profile_exercice"),
+    path('modifier/<int:pk>/', views.modifier, name="modifier_exercice"),
     path('supprimer/<int:pk>/', views.supprimer, name="supprimer_exercice"),
 ]

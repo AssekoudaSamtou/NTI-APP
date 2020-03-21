@@ -11,7 +11,7 @@ class Exercice(models.Model):
     comptes = ManyToManyField(
         'compte.Compte',
         through='ExerciceCompte',
-        through_fields=('exercice', 'compte')
+        through_fields=('exercice', 'compte'),
     )
 
     def __repr__(self):

@@ -21,8 +21,8 @@ def ajouter(request):
         print(form.errors)
         # if form.is_valid():
         tradeur = Tradeur(
-            first_name=request.POST['nom'],
-            last_name=request.POST['prenom'],
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'],
             email=request.POST['email'],
             telephone=request.POST['telephone'],
             sexe=request.POST['sexe']
