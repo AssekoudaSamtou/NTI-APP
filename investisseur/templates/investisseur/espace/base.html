@@ -17,7 +17,9 @@
 
                 <li role="presentation" class="nav-item">
                     <div>
-                        <a class="btn btn-link nav-link" href="{% url 'investissements_investisseur' %}" role="button">
+                        <a class="btn btn-link nav-link {% if request.path == investissements_investisseur_url %}active{% endif %}"
+                           href="{{ investissements_investisseur_url }}"
+                           role="button">
                             <i class="fas fa-cog"></i>
                             <span class="font-weight-bold">Mes Investissements</span>
                         </a>
@@ -27,7 +29,9 @@
 
                 <li role="presentation" class="nav-item">
                     <div>
-                        <a class="btn btn-link nav-link" href="{% url 'payements_investisseur' %}" role="button">
+                        <a class="btn btn-link nav-link {% if request.path == payements_investisseur_url %}active{% endif %}"
+                           href="{{ payements_investisseur_url }}"
+                           role="button">
                             <i class="fas fa-users"></i>
                             <span class="font-weight-bold">Mes Payements</span>
                         </a>
@@ -37,7 +41,9 @@
 
                 <li role="presentation" class="nav-item">
                     <div>
-                        <a class="btn btn-link nav-link" href="{% url 'filleuls' %}" role="button">
+                        <a class="btn btn-link nav-link {% if request.path == filleuls_url %}active{% endif %}"
+                           href="{{ filleuls_url }}"
+                           role="button">
                             <i class="fas fa-users"></i>
                             <span class="font-weight-bold">Mes Filleuls</span>
                             <span class="badge rounded-pill bg-danger">{{ investisseur.fieuls.all|length }}</span>
