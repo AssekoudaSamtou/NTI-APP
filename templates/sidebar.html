@@ -18,55 +18,55 @@
 				</a>
 			</li>
             <li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == exercices_url %}active{% endif %}" href="{% url 'exercices' %}">
+				<a class="nav-link {% if 'exercices' in request.path %}active{% endif %}" href="{% url 'exercices' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Projets</span>
 				</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == tradeurs_url %}active{% endif %}" href="{% url 'tradeurs' %}">
+				<a class="nav-link {% if 'tradeurs' in request.path %}active{% endif %}" href="{% url 'tradeurs' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Tradeurs</span>
 				</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == investisseurs_url %}active{% endif %}" href="{% url 'investisseurs' %}">
+				<a class="nav-link {% if 'investisseurs' in request.path %}active{% endif %}" href="{% url 'investisseurs' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Investisseurs</span>
 				</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == brokers_url %}active{% endif %}" href="{% url 'brokers' %}">
+				<a class="nav-link {% if 'brokers' in request.path %}active{% endif %}" href="{% url 'brokers' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Brokers</span>
 				</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == investissements_url %}active{% endif %}" href="{% url 'investissements' %}">
+				<a class="nav-link {% if 'investissements' in request.path %}active{% endif %}" href="{% url 'investissements' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Investissements</span>
 				</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == comptes_url %}active{% endif %}" href="{% url 'comptes' %}">
+				<a class="nav-link {% if 'comptes' in request.path %}active{% endif %}" href="{% url 'comptes' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Comptes</span>
 				</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == operations_url %}active{% endif %}" href="{% url 'operations' %}">
+				<a class="nav-link {% if 'operations' in request.path %}active{% endif %}" href="{% url 'operations' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Operations</span>
 				</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == payements_url %}active{% endif %}" href="{% url 'payements' %}">
+				<a class="nav-link {% if 'payements' in request.path %}active{% endif %}" href="{% url 'payements' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Payements</span>
 				</a>
 			</li>
             <li class="nav-item" role="presentation">
-				<a class="nav-link {% if request.path == commerciaux_url %}active{% endif %}" href="{% url 'commerciaux' %}">
+				<a class="nav-link {% if 'commerciaux' in request.path %}active{% endif %}" href="{% url 'commerciaux' %}">
 					<i class="fas fa-tachometer-alt"></i>
 					<span>Commerciaux</span>
 				</a>

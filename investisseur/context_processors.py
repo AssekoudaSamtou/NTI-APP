@@ -9,3 +9,6 @@ def infos_investisseur(request):
 
     context = {'investisseur': investisseur}
     return context
+
+def investisseur_urls(request):
+    return {}
