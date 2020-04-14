@@ -1,7 +1,7 @@
 {% load static %}
 
 
-<form action="" method="POST" enctype="multipart/form-data">
+<form id="modifier_form" action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-row">
         <div class="col">
@@ -9,7 +9,7 @@
                 <label for="id_nom">
                     <strong>Nom</strong>
                 </label>
-                {{ form.nom }}
+                {{ form.first_name }}
             </div>
         </div>
         <div class="col">
@@ -17,8 +17,7 @@
                 <label for="id_prenom">
                     <strong>Prénom</strong>
                 </label>
-{#                <input class="form-control" type="text" placeholder="Doe" name="last_name">#}
-                {{ form.prenom }}
+                {{ form.last_name }}
             </div>
         </div>
         <div class="col d-none">
@@ -26,8 +25,8 @@
                 <label for="id_avatar">
                     <strong>Avatar</strong>
                 </label>
-{#                {{ form.avatar }}#}
-                <input type="file" name="avatar" class="form-control" accept="image/*" id="id_avatar">
+                {{ form.avatar }}
+                {{ form.username }}
             </div>
         </div>
     </div>
@@ -38,7 +37,6 @@
                     <strong>Téléphone</strong>
                 </label>
                 {{ form.telephone }}
-{#                <input class="form-control" type="text" placeholder="user.name" name="username">#}
             </div>
         </div>
         <div class="col">
@@ -47,7 +45,6 @@
                     <strong>Adresse Email</strong>
                 </label>
                 {{ form.email }}
-{#                <input class="form-control" type="email" placeholder="user@example.com" name="email">#}
             </div>
         </div>
         <div class="col">
@@ -56,7 +53,6 @@
                     <strong>Sexe</strong>
                 </label>
                 {{ form.sexe }}
-{#                <input class="form-control" type="email" placeholder="user@example.com" name="email">#}
             </div>
         </div>
     </div>

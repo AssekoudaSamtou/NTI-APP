@@ -65,7 +65,7 @@
                                             {% else %}
                                                 <img class="rounded-circle mr-2" width="30" height="30" src="{% static 'img/avatars/avatar6.png' %}"  alt="avatar"/>
                                             {% endif %}
-                                            {{ tradeur.nom }} {{ tradeur.prenom }}
+                                            {{ tradeur.first_name }} {{ tradeur.last_name }}
                                         </td>
                                         <td>{{ tradeur.telephone }}</td>
                                         <td><a href="mailto:{{ tradeur.email }}">{{ tradeur.email }}</a></td>

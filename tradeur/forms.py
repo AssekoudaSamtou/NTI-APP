@@ -1,5 +1,4 @@
 from django.forms import Form, TextInput, Select, FileInput, NumberInput, EmailInput, ModelForm
-from django import forms
 
 from tradeur.models import Tradeur
 
@@ -16,19 +15,19 @@ class Personne(Form):
 class TradeurForm(ModelForm):
     class Meta:
         model = Tradeur
-        fields = '__all__'
+        fields = ['first_name', 'last_name', 'email', 'telephone', 'sexe', 'avatar', 'username']
 
         widgets = {
             'first_name': TextInput(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'form-control names',
                     'required': True,
                     'placeholder': "John",
                 },
             ),
             'last_name': TextInput(
                 attrs={
-                    'class': 'form-control',
+                    'class': 'form-control names',
                     'required': True,
                     'placeholder': "Doe",
                 },
@@ -44,7 +43,7 @@ class TradeurForm(ModelForm):
                 attrs={
                     'class': "form-control",
                     'required': True,
-                    'placeholder': "tradeur@exemple.com",
+                    'placeholder': "0022893780353",
                 }
             ),
             'sexe': Select(
@@ -58,5 +57,13 @@ class TradeurForm(ModelForm):
                 attrs={
                     'class': "form-control",
                 }
-            )
+            ),
+            'username': TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                    'placeholder': "ex : DoeJhon",
+                    # 'disabled': 'disabled'
+                },
+            ),
         }

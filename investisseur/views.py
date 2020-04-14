@@ -32,13 +32,9 @@ def ajouter(request):
 
     if request.method == 'POST':
         form = InvestisseurForm(request.POST)
-        print(form.errors)
-        print(request.POST['username'])
-        print(form.is_valid())
 
         if form.is_valid():
             first_password = pwo.generate()
-            print(first_password)
             investisseur = form.save()
             investisseur.password = make_password(first_password)
             investisseur.init_password = first_password
@@ -57,12 +53,14 @@ def ajouter(request):
 
 @login_required
 @staff_member_required
+@transaction.atomic
 def modifier(request, pk):
     investisseur = Investisseur.objects.get(id=pk)
     form = InvestisseurForm(
         initial={
             'first_name': investisseur.first_name,
             'last_name': investisseur.last_name,
+            'username': investisseur.username,
             'email': investisseur.email,
             'telephone': investisseur.telephone,
             'sexe': investisseur.sexe,
@@ -75,23 +73,23 @@ def modifier(request, pk):
     if request.method == 'POST':
         form = InvestisseurForm(request.POST, request.FILES)
         print(form.errors)
-        if form.is_valid():
-            print('is valid')
-            if form.has_changed():
-                print('has changed')
-                investisseur.first_name = request.POST['nom']
-                investisseur.last_name = request.POST['prenom']
-                investisseur.email = request.POST['email']
-                investisseur.telephone = request.POST['telephone']
-                investisseur.sexe = request.POST['sexe']
-                investisseur.save()
-                return redirect('investisseurs')
+        # if form.is_valid():
+        if form.has_changed():
+            print('has changed')
+            investisseur.first_name = request.POST['first_name']
+            investisseur.last_name = request.POST['last_name']
+            investisseur.email = request.POST['email']
+            investisseur.telephone = request.POST['telephone']
+            investisseur.sexe = request.POST['sexe']
+            investisseur.save()
+            return redirect('investisseurs')
 
     return render(request, 'investisseur/modifier.html', context)
 
 
 @login_required
 @staff_member_required
+@transaction.atomic
 def supprimer(request, pk):
     investisseur = Investisseur.objects.get(id=pk)
 
@@ -156,7 +154,7 @@ def liste_filleuls(request):
     }
     return render(request, 'investisseur/espace/filleuls/liste.html', context=context)
 
-
+@login_required
 def liste_payements(request):
     try:
         user = Investisseur.objects.get(id=request.user.id)

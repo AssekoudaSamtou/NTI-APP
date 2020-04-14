@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    function buildUsername() {
+        var nom = $("#id_first_name").val(),
+            prenom = $("#id_last_name").val();
+
+        $("#id_username").val(nom.trim() + '_' + prenom.trim());
+    }
+
     $("#btn_avatar").click(function () {
         $("#id_avatar").trigger('click');
     });
@@ -17,6 +24,12 @@ $(document).ready(function () {
             $("#img_avatar").attr('src', event.target.result)
         };
         reader.readAsDataURL(files[0]);
+    });
+
+    $(".names").change(function () {
+        buildUsername();
+    }).keyup(function () {
+        buildUsername();
     });
 
 });

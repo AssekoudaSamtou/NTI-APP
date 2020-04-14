@@ -6,7 +6,7 @@
     <div class="form-row">
         <div class="col">
             <div class="form-group">
-                <label for="id_nom">
+                <label for="id_first_name">
                     <strong>Nom</strong>
                 </label>
                 {{ form.first_name }}
@@ -14,7 +14,7 @@
         </div>
         <div class="col">
             <div class="form-group">
-                <label for="id_prenom">
+                <label for="id_last_name">
                     <strong>Prénom</strong>
                 </label>
                 {{ form.last_name }}
@@ -26,6 +26,7 @@
                     <strong>Avatar</strong>
                 </label>
 {#                {{ form.avatar }}#}
+                {{ form.username }}
             </div>
         </div>
     </div>

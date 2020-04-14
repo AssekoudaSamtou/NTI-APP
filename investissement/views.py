@@ -1,5 +1,6 @@
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -17,6 +18,7 @@ def index(request):
 
 @login_required
 @staff_member_required
+@transaction.atomic
 def ajouter(request):
     form = InvestissementForm()
     context = {
@@ -37,6 +39,7 @@ def ajouter(request):
 
 @login_required
 @staff_member_required
+@transaction.atomic
 def modifier(request, pk):
     investissement = Investissement.objects.get(id=pk)
     form = InvestissementForm(
@@ -70,6 +73,7 @@ def modifier(request, pk):
 
 @login_required
 @staff_member_required
+@transaction.atomic
 def supprimer(request, pk):
     investissement = Investissement.objects.get(id=pk)
 
@@ -80,7 +84,6 @@ def supprimer(request, pk):
     else:
         if request.method == "POST":
             investissement.delete()
-            return redirect('investissements')
         return redirect('investissements')
 
 
