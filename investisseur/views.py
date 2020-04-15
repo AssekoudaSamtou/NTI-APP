@@ -117,7 +117,8 @@ def espace(request):
     context = {
         # 'investisseur': user,
         'investissements_en_cours': [i for i in investissements if not i.is_finish()],
-        'somme_investissements': sum(i.montant for i in investissements if not i.is_finish()),
+        'investissements': investissements,
+        'somme_investissements': sum(i.montant for i in investissements),
         'investissements_termine': [i for i in investissements if i.is_finish()],
         'nb_virements': len([p for p in payements if p.status == "VR"]),  # Virement effetuer
         'gains': sum([p.montant for p in payements if p.status == "EC"])

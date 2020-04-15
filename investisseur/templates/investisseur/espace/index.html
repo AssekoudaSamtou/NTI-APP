@@ -17,12 +17,16 @@
 {#        </div>#}
         <div class="row">
             <div class="col-md-6 col-xl-4 mb-4">
-                <div class="card shadow border-left-primary py-2">
+                <div class="card shadow border-left-primary py-2"
+                     onclick="window.location = '{% url "investissements_investisseur" %}';"
+                     title="somme totale des investissements"
+                     style="cursor: pointer">
+
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
                                 <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
-                                    <span>Mes Investissements ({{ investissements_en_cours|length }})</span>
+                                    <span>Total Investissements ({{ investissements|length }})</span>
                                 </div>
                                 <div class="text-dark font-weight-bold h5 mb-0">
                                     <span>{{ somme_investissements }} Fcfa </span>
@@ -33,10 +37,14 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-6 col-xl-4 mb-4">
-                <div class="card shadow border-left-primary py-2">
+                <div class="card shadow border-left-primary py-2"
+                     title="investissements + retours sur investissement"
+                     style="">
+
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
@@ -50,10 +58,15 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-6 col-xl-4 mb-4">
-                <div class="card shadow border-left-success py-2">
+                <div class="card shadow border-left-success py-2"
+                     onclick="window.location = '{% url "investissements_investisseur" %}';"
+                     title="Mes Investissements en cours"
+                     style="cursor: pointer">
+
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
@@ -69,10 +82,15 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-6 col-xl-4 mb-4">
-                <div class="card shadow border-left-info py-2">
+                <div class="card shadow border-left-info py-2"
+                     onclick="window.location = '{% url "investissements_investisseur" %}';"
+                     title="Mes Investissements terminés"
+                     style="cursor: pointer">
+
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
@@ -89,10 +107,14 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-6 col-xl-4 mb-4">
-                <div class="card shadow border-left-success py-2">
+                <div class="card shadow border-left-success py-2"
+                     title="Virements effectués"
+                     style="">
+
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
@@ -105,10 +127,14 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-6 col-xl-4 mb-4">
-                <div class="card shadow border-left-success py-2" style="border-left:.25rem solid #1cb6c8!important">
+                <div class="card shadow border-left-success py-2"
+                     onclick="window.location = '{% url "filleuls" %}';"
+                     title="Mes filleuls"
+                     style="border-left:.25rem solid #1cb6c8!important;cursor: pointer">
                     <div class="card-body">
                         <div class="row align-items-center no-gutters">
                             <div class="col mr-2">
