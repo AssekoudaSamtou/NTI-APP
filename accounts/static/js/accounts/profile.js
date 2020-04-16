@@ -55,4 +55,12 @@ $(document).ready(function () {
         reader.readAsDataURL(files[0]);
     });
 
+    let url = new URL(window.location.href);
+    if (url.searchParams.get("pwd_modal") === "true") {
+        $("#passwordModal").modal({
+            focus: true,
+
+        })
+    }
+
 });

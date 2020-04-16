@@ -16,3 +16,6 @@ class Investisseur(User):
 
 	def __str__(self):
 		return f"{self.first_name} {self.last_name}"
+
+	def has_changed_init_pwd(self):
+		return self.check_password(self.init_password) == False

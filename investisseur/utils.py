@@ -3,12 +3,12 @@ import os
 from sendgrid import Mail, SendGridAPIClient
 
 
-def test(to_emails):
+def send_welcome_mail(to):
     message = Mail(
         from_email="new.touch.investing@gmail.com",
-        to_emails=to_emails,
+        to_emails=to.email,
         subject='Bienvenu(e) sur New Touch Investing',
-        html_content='<strong>and easy to do anywhere, even with Python</strong>'
+        html_content=f'<strong>Mot de passe temporaire: {to.init_password}</strong>'
     )
     try:
         sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))

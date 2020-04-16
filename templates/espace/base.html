@@ -33,7 +33,18 @@
 			<div id="content">
 				
 				{% include 'espace/header.html' %}
-				
+{#          {% if not user.has_changed_init_pwd %}#}
+
+            <div class="alert alert-danger mx-3" role="alert">
+              <h4 class="alert-heading">Attention! </h4>
+              <p>Il est déconseillé de garder le mot de passe par défaut (celui reçu par email) pour des raisons de sécurité. Vaillez changer le mot de passe par un nouveau que vous seul connaitrez.</p>
+              <hr>
+              <p class="mb-0">
+                <a href="{% url 'view_profile' %}?pwd_modal=true">changer mon mot de passe d'initialisation.</a>
+              </p>
+            </div>
+
+{#          {% endif %}#}
 				{% block content %}{% endblock content %}
 				
 			</div>
@@ -47,7 +58,7 @@
 	<script src="{% static 'MDBootstrap/js/jquery.js' %}"></script>
 	<script src="{% static 'MDBootstrap/js/popper.js' %}"></script>
 	<script src="{% static 'MDBootstrap/js/bootstrap.js' %}"></script>
-    <script src="{% static 'js/chart.min.js' %}"></script>
+  <script src="{% static 'js/chart.min.js' %}"></script>
 	<script src="{% static 'js/bs-init.js' %}"></script>
 	<script src="{% static 'js/jquery.easing.js' %}"></script>
 	<script src="{% static 'js/theme.js' %}"></script>
@@ -56,7 +67,7 @@
 	<script src="{% static 'js/dataTable/datatables.js' %}"></script>
 	<script src="{% static 'js/dataTable/dataTables.bootstrap4.js' %}"></script>
 
-    <script type="application/javascript">
+  <script type="application/javascript">
         $(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
