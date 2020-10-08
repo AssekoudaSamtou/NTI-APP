@@ -65,5 +65,67 @@ class InvestisseurForm(ModelForm):
             ),
         }
 
+class InvestisseurFormDisabled(ModelForm):
+    class Meta:
+        model = Investisseur
+        fields = ['first_name', 'last_name', 'email', 'telephone', 'sexe', 'parrain', 'username']
+
+        widgets = {
+            'first_name': TextInput(
+                attrs={
+                    'class': 'form-control names',
+                    'required': True,
+                    'placeholder': "John",
+                    'disabled': 'disabled'
+                },
+            ),
+            'last_name': TextInput(
+                attrs={
+                    'class': 'form-control names',
+                    'required': True,
+                    'placeholder': "Doe",
+                    'disabled': 'disabled'
+                },
+            ),
+            'username': TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                    'placeholder': "ex : DoeJhon",
+                    'disabled': 'disabled'
+                },
+            ),
+            'email': EmailInput(
+                attrs={
+                    'class': "form-control",
+                    'required': True,
+                    'placeholder': "client@exemple.com",
+                    'disabled': 'disabled'
+                }
+            ),
+            'telephone': NumberInput(
+                attrs={
+                    'class': "form-control",
+                    'required': True,
+                    'placeholder': "client@exemple.com",
+                    'disabled': 'disabled'
+                }
+            ),
+            'sexe': Select(
+                attrs={
+                    'class': "form-control",
+                    'required': True,
+                    'disabled': 'disabled'
+                },
+                choices=SEX_CHOICES
+            ),
+            'parrain': Select(
+                attrs={
+                    'class': "form-control",
+                    'disabled': 'disabled'
+                },
+            ),
+        }
+
 class MDSelect(Select):
     pass

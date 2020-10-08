@@ -7,7 +7,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from password_generator import PasswordGenerator
 
-from investisseur.forms import InvestisseurForm
+from investisseur.forms import InvestisseurForm, InvestisseurFormDisabled
 from investisseur.models import Investisseur
 from payement.models import Payement
 
@@ -51,11 +51,17 @@ def ajouter(request):
     return render(request, 'investisseur/ajouter.html', context)
 
 
+def ajouter_investissement(request):
+    pass
+
 @login_required
 @staff_member_required
 @transaction.atomic
 def modifier(request, pk):
     investisseur = Investisseur.objects.get(id=pk)
+    groups = request.user.groups.all()
+    # if len(groups) >= 1 and groups[0].name == 'caissier':
+
     form = InvestisseurForm(
         initial={
             'first_name': investisseur.first_name,
@@ -69,6 +75,8 @@ def modifier(request, pk):
     context = {
         'form': form,
         'investisseur': investisseur,
+        'can__delete': request.user.is_superuser,
+        'can__add_investissement': request.user.is_superuser or groups[0].name == "caissier",
     }
     if request.method == 'POST':
         form = InvestisseurForm(request.POST, request.FILES)

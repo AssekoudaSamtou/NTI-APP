@@ -1,5 +1,6 @@
-from datetime import date
+from datetime import date, datetime
 
+from django.contrib.auth.models import User
 from django.db import models, transaction
 
 from compte.models import Compte
@@ -7,21 +8,30 @@ from investissement.utils import incrementer_date
 from investisseur.models import Investisseur
 
 POURCENTAGE_BONUS = .05
-POURCENTAGE_MENSUEL = .4
+POURCENTAGE_MENSUEL = .3
 MONTH_LENGTH = 30
-TYPE_CHOICES = [
-    ('B', 'Bloqué'),
-    ('M', 'Mensuel')
+PACK_CHOICES = [
+    ('1', 'Profit Mensuel'),
+    ('2', 'Bloqué')
 ]
 
+class Pack(models.Model):
+    libelle = models.CharField(max_length=14)
+    duree = models.PositiveSmallIntegerField()
+    taux = models.DecimalField(max_digits=5, decimal_places=2, null=False)
+
+    def __str__(self):
+        return f"Pack 0{self.id} ({self.libelle})"
 
 class Investissement(models.Model):
     investisseur = models.ForeignKey(Investisseur, related_name='investissements', on_delete=models.CASCADE)
     montant = models.DecimalField(max_digits=10, decimal_places=2)
     date_investissement = models.DateField(default=date.today)
     date_decompte = models.DateField(default=date.today)
-    duree = models.PositiveSmallIntegerField(default=1)
-    type = models.CharField(max_length=20, choices=TYPE_CHOICES, null=True)
+    pack = models.ForeignKey(Pack, related_name='investissements', on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['date_decompte']
@@ -41,9 +51,9 @@ class Investissement(models.Model):
 
         with transaction.atomic():
             base_date = self.date_decompte
-            for i in range(self.duree):
+            for i in range(self.pack.duree):
 
-                if i + 1 == self.duree:
+                if i + 1 == self.pack.duree:
                     montant_payement = float(self.montant) * 1.4
                 else:
                     montant_payement = float(self.montant) * 0.4
@@ -60,7 +70,7 @@ class Investissement(models.Model):
 
     def is_finish(self):
         today = date.today()
-        invest_end = incrementer_date(self.date_decompte, 30 * self.duree)
+        invest_end = incrementer_date(self.date_decompte, 30 * self.pack.duree)
 
         return today > invest_end
 
@@ -84,13 +94,13 @@ class Investissement(models.Model):
         if aujourdhui >= self.date_fin():
             return 100
 
-        return int((aujourdhui - self.date_decompte).days * 100 / float(MONTH_LENGTH * self.duree))
+        return int((aujourdhui - self.date_decompte).days * 100 / float(MONTH_LENGTH * self.pack.duree))
 
     def retour_sur_investissement(self):
-        return float(self.montant) * (1 + (POURCENTAGE_MENSUEL * self.duree))
+        return float(self.montant) * (1 + (POURCENTAGE_MENSUEL * self.pack.duree))
 
     def date_fin(self):
-        return incrementer_date(self.date_decompte, MONTH_LENGTH * self.duree)
+        return incrementer_date(self.date_decompte, MONTH_LENGTH * self.pack.duree)
 
     def rang(self):
         rank = 1

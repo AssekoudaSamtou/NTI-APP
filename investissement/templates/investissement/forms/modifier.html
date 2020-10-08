@@ -38,22 +38,14 @@
                 {{ form.date_decompte }}
             </div>
         </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="id_duree">
-                    <strong>Durée</strong>
-                </label>
-                {{ form.duree }}
-            </div>
-        </div>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-save"></i>&nbsp;Save</button>
+        <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-save"></i>&nbsp;Enrégistrer</button>
         <button class="btn btn-danger btn-sm" type="button"
                 value="{% url 'supprimer_investissement' pk=investissement.id %}"
                 onclick="supprimerInvestissement(this.value);">
 
-            <i class="fas fa-trash" ></i>&nbsp;Delete
+            <i class="fas fa-trash" ></i>&nbsp;Supprimer
 
         </button>
     </div>

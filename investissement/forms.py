@@ -14,14 +14,14 @@ DUREE_CHOICES = [
 class InvestissementForm(ModelForm):
     class Meta:
         model = Investissement
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['duree', 'taux']
 
         widgets = {
             'date_decompte': DateInput(
                 attrs={
                     'class': 'form-control',
                     'required': True,
-                    'placeholder': "Maintenant",
                     'type': 'date'
                 },
             ),
@@ -29,34 +29,72 @@ class InvestissementForm(ModelForm):
                 attrs={
                     'class': 'form-control',
                     'required': True,
-                    'placeholder': "Maintenant",
-                    'type' : 'date',
+                    'type': 'date',
                 },
             ),
             'montant': NumberInput(
                 attrs={
                     'class': 'form-control',
                     'required': True,
-                    'placeholder': "Ex: 300000",
-                    'disabled': False,
                 },
-            ),
-            'duree': Select(
-                attrs={
-                    'class': 'form-control',
-                    'required': True,
-                },
-                choices=DUREE_CHOICES
             ),
             'investisseur': Select(
                 attrs={
                     'class': 'form-control',
                     'required': True,
                 },
-                choices=[]#Investisseur.objects.all()
+            ),
+            'pack': Select(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                },
             ),
         }
 
     def clean(self):
         cleaned_data = super().clean()
 
+
+class InvestissementForm2(ModelForm):
+    class Meta:
+        model = Investissement
+        exclude = ['duree', 'taux']
+
+        widgets = {
+            'date_decompte': DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                    'type': 'date'
+                },
+            ),
+            'date_investissement': DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                    'type': 'date',
+                },
+            ),
+            'montant': NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                    'disabled': False,
+                },
+            ),
+            'investisseur': Select(
+                attrs={
+                    'class': 'form-control disabled',
+                    'required': True,
+                    # 'disabled': True,
+                },
+                choices=[]
+            ),
+            'pack': Select(
+                attrs={
+                    'class': 'form-control',
+                    'required': True,
+                },
+            ),
+        }

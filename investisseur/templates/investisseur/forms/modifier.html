@@ -57,13 +57,20 @@
         </div>
     </div>
     <div class="form-group">
-        <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-save"></i>&nbsp;Save</button>
-        <button class="btn btn-danger btn-sm" type="button"
-                value="{% url 'supprimer_investisseur' pk=investisseur.id %}"
-                onclick="supprimerInvestisseur(this.value);">
+        <button class="btn btn-primary btn-sm" type="submit"><i class="fas fa-save"></i>&nbsp;Enregistrer </button>
 
-            <i class="fas fa-trash" ></i>&nbsp;Delete
+        {% if can__delete %}
+            <button class="btn btn-danger btn-sm" type="button"
+                    value="{% url 'supprimer_investisseur' pk=investisseur.id %}"
+                    onclick="supprimerInvestisseur(this.value);">
+                <i class="fas fa-trash" ></i>&nbsp;Supprimer
+            </button>
+        {% endif %}
 
-        </button>
+        {% if can__add_investissement %}
+            <a href="{% url 'ajouter_investissement_investisseur' pk=investisseur.id %}" class="btn btn-warning btn-sm" type="button" style="color: white;float: right;font-weight: bold">
+                <i class="fas fa-plus" ></i>&nbsp;Ajouter un investissement
+            </a>
+        {% endif %}
     </div>
 </form>

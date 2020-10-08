@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 from commerciaux.models import Commercial
 from tradeur.models import Tradeur
@@ -31,6 +32,10 @@ def home(request):
         if groups[0].name == 'commercial':
             context['investisseur'] = Commercial.objects.get(id=request.user.id)
             return render(request, TEMPLATES['commerciaux'], context)
+
+        if groups[0].name == 'caissier':
+            context['caissier'] = User.objects.get(id=request.user.id)
+            return redirect('investisseurs')
     raise Http404(request)
 
 
